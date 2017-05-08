@@ -258,31 +258,22 @@ public class GamePanel extends Pane {
 		SequentialTransition returnST = new SequentialTransition();
 		Label lblPlayer = lblPlayer(isA, text);
 		GamePanel.this.getChildren().add(lblPlayer);
-		Timeline animatelbl = new Timeline(
-//				new KeyFrame(Duration.ZERO, new KeyValue(lblPlayer.opacityProperty(), 1)),
-//				new KeyFrame(Duration.ZERO, new KeyValue(lblPlayer.scaleXProperty(), 1)),
-//				new KeyFrame(Duration.ZERO, new KeyValue(lblPlayer.scaleYProperty(), 1)),
+		Timeline lblTL = new Timeline(
 				new KeyFrame(Duration.millis(400), new KeyValue(lblPlayer.scaleXProperty(), 1.5, Interpolator.EASE_BOTH)),
 				new KeyFrame(Duration.millis(400), new KeyValue(lblPlayer.scaleYProperty(), 1.5, Interpolator.EASE_BOTH)),
-				new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.opacityProperty(), 0, Interpolator.EASE_OUT))
+				new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.opacityProperty(), 1, Interpolator.EASE_OUT))
 		);
-//		Timeline tempTL = new Timeline(
-//				new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.opacityProperty(), 0, Interpolator.EASE_OUT))
-//		);
-		//TODO 怎么解决这个问题啊，就是去不掉...目前最大的bug
-		animatelbl.setOnFinished(e -> {
-			GamePanel.this.getChildren().removeAll(lblPlayer);
-			lblPlayer.setOpacity(0);
+		//后面被覆盖掉了。。。
+		lblTL.setOnFinished(e -> {
+			GamePanel.this.getChildren().remove(lblPlayer);
 		});
-//		returnST.getChildren().addAll(animatelbl, tempTL);
-		return animatelbl;
-//		return returnST;
+		return lblTL;
 	}
 
 	public Label lblPlayer(boolean isA, String text) {
 		Label lblPlayer = new Label(text);
 		lblPlayer.getStyleClass().add("game-lblPoints");
-		lblPlayer.setOpacity(1);
+		lblPlayer.setOpacity(0);
 		lblPlayer.setLayoutX(GridPanel.GRIDPANEL_WIDTH * 0.2);
 
 		if (isA) {

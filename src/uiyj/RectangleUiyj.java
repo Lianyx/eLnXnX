@@ -1,12 +1,13 @@
 package uiyj;
 
-import javafx.animation.PathTransition;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -41,6 +42,19 @@ public class RectangleUiyj extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
+        Label lblPlayer = new Label("gads");
+        root.getChildren().add(lblPlayer);
+        lblPlayer.setOpacity(0);
+
+        SequentialTransition returnST = new SequentialTransition();
+        Timeline animatelbl = new Timeline(
+                new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.scaleXProperty(), 3, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.scaleYProperty(), 3, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.opacityProperty(), 1, Interpolator.EASE_OUT))
+        );
+        animatelbl.setOnFinished(e->root.getChildren().remove(lblPlayer));
+        SequentialTransition st = new SequentialTransition(animatelbl);
+        st.play();
 
 
         root.setStyle("-fx-background-color: #B0B0B0");
@@ -48,53 +62,5 @@ public class RectangleUiyj extends Application {
         root.setPrefHeight(800/2);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
-        ArrayList<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
-        ArrayList<Integer> list2 = new ArrayList<>(Arrays.asList(5, 6, 7, 8, 9));
-        ArrayList<Integer> list3 = new ArrayList<>(Arrays.asList(51, 61, 71, 81, 91));
-
-
-//        list1.addAll(list2);
-//        list1.remove(new Integer(5));
-//        list1.remove(new Integer(5));
-//
-//        System.out.println(list1);
-
-        ArrayList<ArrayList<Integer>> jewelsToBeDeleted = new ArrayList<ArrayList<Integer>>();
-        jewelsToBeDeleted.add(list1);
-        jewelsToBeDeleted.add(list2);
-        jewelsToBeDeleted.add(list3);
-
-
-        ArrayList<Integer> toBeMergedList1 = new ArrayList<>();
-        System.out.println(jewelsToBeDeleted);
-
-
-        Integer tempJewel = 5;
-        for(ArrayList<Integer> tempList: jewelsToBeDeleted.stream().collect(Collectors.toList())) {
-            if (tempList.contains(tempJewel) && toBeMergedList1.isEmpty()) {
-                toBeMergedList1 = tempList;
-                jewelsToBeDeleted.remove(tempList);
-            } else if (tempList.contains(tempJewel)) {
-                System.out.println();
-                jewelsToBeDeleted.remove(tempList);
-                tempList.addAll(toBeMergedList1);
-                tempList.remove(tempJewel);
-                tempList.remove(tempJewel);
-                jewelsToBeDeleted.add(tempList);
-            }
-        }
-        System.out.println();
-        System.out.println(jewelsToBeDeleted);
-//        jewelsToBeDeleted.forEach(e->{
-//            System.out.println(e);
-//        });
-//
-//        IntegerProperty width = new SimpleIntegerProperty(10);
-//        IntegerProperty height = new SimpleIntegerProperty(10);
-//
-//        NumberBinding area = width.multiply(height);
-//
-//        System.out.println(area.getValue());
     }
 }

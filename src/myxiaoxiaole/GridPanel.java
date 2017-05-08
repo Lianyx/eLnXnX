@@ -470,6 +470,7 @@ public class GridPanel extends Pane {
         }
 
         attackSt.setOnFinished(e -> {
+            gamePanel.getChildren().removeAll(gamePanel.getChildren().stream().filter(l -> l instanceof Label).collect(Collectors.toList()));/**和Attack方法里的代码呼应，都很蠢。。*/
             if (checkDeleteAndMark()) {
                 delete(delay);// 这算调递归了吧
             } else {
@@ -488,28 +489,8 @@ public class GridPanel extends Pane {
         dropPt.play();
 
         jewelsToBeDeleted.clear();
-//        actionsToBeMade.clear();
     }
 
-    //感觉这样的话攻击的逻辑也要写在这里了，至少从这里传，actionToBeMade什么的也可以省了
-    //这样等着很蠢，可以考虑先把所有可以消除的按颜色分别融合在一起，比如一个在棋盘上方的球
-//    private SequentialTransition vanish(Jewel jewel){
-//        SequentialTransition st = new SequentialTransition();
-//        Timeline t1 = new Timeline(
-//                new KeyFrame(Duration.millis(100), new KeyValue(jewel.scaleXProperty(), 1.4, Interpolator.EASE_OUT)),
-//                new KeyFrame(Duration.millis(100), new KeyValue(jewel.scaleYProperty(), 1.4, Interpolator.EASE_OUT))
-//        );
-//        Timeline t2 = new Timeline(
-//                new KeyFrame(Duration.millis(200), new KeyValue(jewel.layoutXProperty(), GRIDPANEL_WIDTH/2, Interpolator.EASE_IN)),
-//                new KeyFrame(Duration.millis(200), new KeyValue(jewel.layoutYProperty(), AsTurn? -50 : GRIDPANEL_HEIGHT, Interpolator.EASE_IN))
-//        );
-//        st.getChildren().addAll(t1, t2);
-//        st.setOnFinished(e->{
-//            this.getChildren().remove(jewel);
-//        });
-////        st.play();
-//        return st;
-//    }
 
 
     private ParallelTransition prepareAttack(ArrayList<Jewel> jewels){
@@ -575,6 +556,7 @@ public class GridPanel extends Pane {
         st.getChildren().addAll(moveTL, attackTL);
         st.setOnFinished(e->{
             GridPanel.this.getChildren().remove(randomJewel);
+            gamePanel.getChildren().stream().filter(l -> l instanceof Label).forEach(l->l.setOpacity(0));/**代码这样写有点不好看，但是我拿不到lblPlayer的引用啊，最后做完一轮一起删*/
         });
 
 
