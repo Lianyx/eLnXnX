@@ -98,10 +98,13 @@ public class Jewel extends ImageView{
 	public int getColor() {
 		return this.color;
 	}
-
-	public int actionNum(){//权宜之计(现在status只有0和1)
-		return this.getStatus() * 10 + this.getColor();
+	public boolean isAttackJewel(){
+		return this.getColor() == 0 || this.getColor() == 2 || this.getColor() == 4;
 	}
+
+//	public int actionNum(){//权宜之计(现在status只有0和1)
+//		return this.getStatus() * 10 + this.getColor();
+//	}
 
 
 //	public boolean isAdjacent(Jewel jewel2) {

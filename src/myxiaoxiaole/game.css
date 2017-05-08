@@ -12,7 +12,10 @@
 .game-root{
     -fx-background-color: #ffffff;
 }
-
+.game-lblPoint{
+    -fx-font-size: 100;
+    /*-fx-font-*/
+}
 /*.game-root {*/
     /*-fx-background-color: #faf8ef;*/
 /*}*/
