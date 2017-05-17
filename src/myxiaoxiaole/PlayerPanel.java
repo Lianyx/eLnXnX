@@ -25,8 +25,13 @@ public class PlayerPanel extends Pane {
     private IntegerProperty HPProperty = new SimpleIntegerProperty(1000);
     private IntegerProperty ACProperty = new SimpleIntegerProperty(500);
 
+    private int number;
+    private GamePanel gamePanel;
 
-    public PlayerPanel() {
+    public PlayerPanel(int number, GamePanel gamePanel) {
+        this.number = number;
+        this.gamePanel = gamePanel;
+
         this.setPrefWidth(80);
         this.setPrefHeight(300);
 
@@ -51,7 +56,7 @@ public class PlayerPanel extends Pane {
         recHP.setLayoutX(20);
         recAC.setLayoutX(40);
 
-        //TODO 无力。multiply里只能写0.28，不能写280/1000。为什么啊
+        //无力。multiply里只能写0.28，不能写280/1000。因为这是整除啊。。
         recHP.heightProperty().bind(HPProperty.multiply(0.28));
         recAC.heightProperty().bind(ACProperty.multiply(0.28));
 
@@ -62,9 +67,15 @@ public class PlayerPanel extends Pane {
         lblHPPoint.layoutYProperty().bind(recHP.heightProperty());
         lblACPoint.layoutYProperty().bind(recAC.heightProperty());
 
-
-
         this.getChildren().addAll(recHP, recAC, lblHPPoint, lblACPoint);
+
+        HPProperty.addListener((observable, o,n)->{
+            if((int)n == 0){
+                //TODO 这里可以考虑加动画
+                gamePanel.setLayerOn();
+            }
+        });
+
     }
 
     public int getHP(){

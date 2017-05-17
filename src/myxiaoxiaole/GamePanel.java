@@ -1,9 +1,7 @@
 package myxiaoxiaole;
 
 import javafx.animation.*;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -11,36 +9,40 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
-import java.util.Set;
-
 
 public class GamePanel extends Pane {
 	public static final int WIDTH = 900/2;
 	public static final int HEIGHT = 1600/2;
 	public static final int OFFSET_HEIGHT = (GamePanel.HEIGHT - GridPanel.GRIDPANEL_HEIGHT)/2;
+	public static final String ROUND_TIME = "15";
+
+	private final BooleanProperty layerOnProperty = new SimpleBooleanProperty(false);
+	private final BooleanProperty EndGameProperty = new SimpleBooleanProperty(false);
+	public final StringProperty clock = new SimpleStringProperty(ROUND_TIME);
+
+	private Timeline timer;
 
 	private final GridPanel gridPanel;
-
-	private IntegerProperty gameAttackPoint = new SimpleIntegerProperty();
-	private IntegerProperty gameSupplyPoint = new SimpleIntegerProperty();
-	private Timeline animateAEffect;
-	private Timeline animateBEffect;
-
 	public PlayerPanel playerA, playerB;
+
+	private Button btQuit,btContinue;
+	private Label lblTime;
+
+
 
 	public GamePanel() {
 		this.setPrefWidth(WIDTH);
 		this.setPrefHeight(HEIGHT);
 		gridPanel = new GridPanel(this);
 
-		playerA = new PlayerPanel();
+		playerA = new PlayerPanel(0, this);
 		playerA.setLayoutX(GridPanel.GRIDPANEL_WIDTH);
 		playerA.setLayoutY(GamePanel.HEIGHT/2);
 		playerA.setScaleY(-1);//翻转，playerA是下面的那个
 		playerA.lblHPPoint.setScaleY(-1);
 		playerA.lblACPoint.setScaleY(-1);
 
-		playerB = new PlayerPanel();
+		playerB = new PlayerPanel(1, this);
 		playerB.setLayoutX(GridPanel.GRIDPANEL_WIDTH);
 		playerB.setLayoutY(OFFSET_HEIGHT);
 //		playerB.lblHPPoint.setScaleY(-1);
@@ -61,44 +63,70 @@ public class GamePanel extends Pane {
 		Button bMenu = new Button("menu");
 		bMenu.setLayoutX(10);
 		bMenu.setLayoutY(10);
-
-//		lblPlayerA.textProperty().bind(Bindings.createStringBinding(()->
-//				(gameAttackPoint.get() > 0 ? "+" + Integer.toString(gameAttackPoint.get()) : "")
-//		));
-
-
-
-
-//		//TODO 似乎只能每个都new一个，不能写成这样的
-//		Label lblPlayerA = lblPlayer(true, "fads");
-//		Label lblPlayerB = lblPlayer(false, "jihuu");
-//		animateAEffect = new Timeline(
-//				new KeyFrame(Duration.ZERO, new KeyValue(lblPlayerA.opacityProperty(), 1)),
-//				new KeyFrame(Duration.ZERO, new KeyValue(lblPlayerA.scaleXProperty(), 1)),
-//				new KeyFrame(Duration.ZERO, new KeyValue(lblPlayerA.scaleYProperty(), 1)),
-//				new KeyFrame(Duration.millis(200), new KeyValue(lblPlayerA.scaleXProperty(), 1.5, Interpolator.EASE_BOTH)),
-//				new KeyFrame(Duration.millis(200), new KeyValue(lblPlayerA.scaleYProperty(), 1.5, Interpolator.EASE_BOTH)),
-//				new KeyFrame(Duration.millis(400), new KeyValue(lblPlayerA.opacityProperty(), 0, Interpolator.EASE_OUT))
-//		);
-//		animateBEffect = new Timeline(
-//				new KeyFrame(Duration.ZERO, new KeyValue(lblPlayerB.opacityProperty(), 1)),
-//				new KeyFrame(Duration.ZERO, new KeyValue(lblPlayerB.scaleXProperty(), 1)),
-//				new KeyFrame(Duration.ZERO, new KeyValue(lblPlayerB.scaleYProperty(), 1)),
-//				new KeyFrame(Duration.millis(200), new KeyValue(lblPlayerB.scaleXProperty(), 1.5, Interpolator.EASE_BOTH)),
-//				new KeyFrame(Duration.millis(200), new KeyValue(lblPlayerB.scaleYProperty(), 1.5, Interpolator.EASE_BOTH)),
-//				new KeyFrame(Duration.millis(400), new KeyValue(lblPlayerB.opacityProperty(), 0, Interpolator.EASE_OUT))
-//		);
-
-
-
+		bMenu.setOnAction(e->{
+			layerOnProperty.set(true);
+		});
 
 		this.getChildren().addAll(bMenu, gridPanel, playerA, playerB, divideLine);
 
+
+		btContinue = new Button("Continue");
+		btQuit = new Button("Quit");
+		btQuit.setLayoutY(GamePanel.HEIGHT/2);
+		btQuit.setLayoutX(180);
+		btContinue.setLayoutY(GamePanel.HEIGHT/2);
+		btContinue.setLayoutX(220);
+
+		btContinue.setOnAction(e->{
+			layerOnProperty.set(false);
+		});
+		btQuit.setOnAction(e->{
+			StackPane root = (StackPane)this.getParent();
+			root.getChildren().remove(this);
+		});
+
+
+		layerOnProperty.addListener((observable, oldValue, newValue)->{
+			if(!newValue){
+				this.getChildren().removeAll(btContinue, btQuit);
+				gridPanel.inAnimation = false;
+				timer.play();
+			} else {
+				this.getChildren().addAll(btContinue, btQuit);
+				gridPanel.inAnimation = true;
+				timer.pause();
+			}
+		});
+
+		lblTime = new Label();
+		lblTime.textProperty().bind(clock);
+		lblTime.setLayoutX(300);
+		lblTime.setLayoutY(20);
+		this.getChildren().add(lblTime);
+		timer = new Timeline(new KeyFrame(Duration.seconds(1), e->{
+			if(clock.get().equals("0")){
+				clock.setValue(ROUND_TIME);
+				gridPanel.AsTurn = !gridPanel.AsTurn;
+			} else {
+				clock.set(String.valueOf(Integer.parseInt(clock.getValue())-1));
+			}
+		}));
+		timer.setCycleCount(Timeline.INDEFINITE);
+		timer.play();
 	}
 
-//	public void processActions(Set<Integer> actionsTobeMade, PlayerPanel player){
-//		actionsTobeMade.forEach(i -> processActions(i, player));
-//	}
+	public void pauseTimer(){
+		timer.pause();
+	}
+	public void continueTimer(){
+		timer.playFromStart();
+	}
+
+	public void setLayerOn(){
+		layerOnProperty.set(true);
+	}
+
+
 	public Timeline processActions(boolean isA, int actionNum){
 		PlayerPanel player = isA? playerA: playerB;
 		switch(actionNum){
@@ -131,7 +159,8 @@ public class GamePanel extends Pane {
 //			case 14:break;
 
 		}
-		return null;
+		//TODO 改成这样试一试吧。。
+		return new Timeline();
 	}
 
 	private PlayerPanel oppositePlayer(PlayerPanel player){
@@ -256,12 +285,12 @@ public class GamePanel extends Pane {
 
 	private Timeline animateLbl(boolean isA, String text){
 		SequentialTransition returnST = new SequentialTransition();
-		Label lblPlayer = lblPlayer(isA, text);
+		attackLabel lblPlayer = lblPlayer(isA, text);
 		GamePanel.this.getChildren().add(lblPlayer);
 		Timeline lblTL = new Timeline(
-				new KeyFrame(Duration.millis(400), new KeyValue(lblPlayer.scaleXProperty(), 1.5, Interpolator.EASE_BOTH)),
-				new KeyFrame(Duration.millis(400), new KeyValue(lblPlayer.scaleYProperty(), 1.5, Interpolator.EASE_BOTH)),
-				new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.opacityProperty(), 1, Interpolator.EASE_OUT))
+				new KeyFrame(Duration.millis(300), new KeyValue(lblPlayer.scaleXProperty(), 1.5, Interpolator.EASE_BOTH)),
+				new KeyFrame(Duration.millis(300), new KeyValue(lblPlayer.scaleYProperty(), 1.5, Interpolator.EASE_BOTH)),
+				new KeyFrame(Duration.millis(450), new KeyValue(lblPlayer.opacityProperty(), 1, Interpolator.EASE_OUT))
 		);
 		//后面被覆盖掉了。。。
 		lblTL.setOnFinished(e -> {
@@ -270,8 +299,8 @@ public class GamePanel extends Pane {
 		return lblTL;
 	}
 
-	public Label lblPlayer(boolean isA, String text) {
-		Label lblPlayer = new Label(text);
+	public attackLabel lblPlayer(boolean isA, String text) {
+		attackLabel lblPlayer = new attackLabel(text);
 		lblPlayer.getStyleClass().add("game-lblPoints");
 		lblPlayer.setOpacity(0);
 		lblPlayer.setLayoutX(GridPanel.GRIDPANEL_WIDTH * 0.2);
@@ -282,5 +311,12 @@ public class GamePanel extends Pane {
 			lblPlayer.setLayoutY(GamePanel.OFFSET_HEIGHT - 50);
 		}
 		return lblPlayer;
+	}
+}
+
+//只是为了区分Label，这样就可以使用instanceof把PlayerLabel全部移除
+class attackLabel extends Label{
+	attackLabel(String text){
+		super(text);
 	}
 }

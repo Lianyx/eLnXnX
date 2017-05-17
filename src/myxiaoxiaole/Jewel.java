@@ -54,9 +54,9 @@ public class Jewel extends ImageView{
 //			this.setFill(colors[color]);
 //		});
 
-		setOnMouseClicked(e -> {
-			System.out.println("Jewel");
-		});
+//		setOnMouseClicked(e -> {
+//			System.out.println("Jewel");
+//		});
 	}
 	/**为了Optional特意写的，可能不好*/
 	public Jewel (){

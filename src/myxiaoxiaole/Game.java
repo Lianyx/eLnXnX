@@ -14,12 +14,16 @@ public class Game extends Application {
 	public void start(Stage stage) throws Exception {
 		StackPane root = new StackPane();
 		Scene scene = new Scene(root);
+		GamePanel gamePanel = new GamePanel();
+		MenuPanel menuPanel = new MenuPanel();
 
-		root.getChildren().add(new GamePanel());
+		root.getChildren().add(menuPanel);
 
 		scene.getStylesheets().add(Game.class.getResource("game.css").toExternalForm());
 //		System.out.println(Game.class.getResource("game.css").toExternalForm());
 		root.getStyleClass().add("game-root");
+
+
 
 		stage.setScene(scene);
 //		stage.initStyle(StageStyle.UNDECORATED);

@@ -25,10 +25,10 @@ import uiyj.rsces.StarCircle;
 import uiyj.rsces.Sun;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -39,28 +39,45 @@ import java.util.stream.Collectors;
  * 3.Moon, Sun, star,
  */
 public class RectangleUiyj extends Application {
+    private Timeline tl;
+    long lastUpdate = System.currentTimeMillis();
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
-        Label lblPlayer = new Label("gads");
-        root.getChildren().add(lblPlayer);
-        lblPlayer.setOpacity(0);
-
-        SequentialTransition returnST = new SequentialTransition();
-        Timeline animatelbl = new Timeline(
-                new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.scaleXProperty(), 3, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.scaleYProperty(), 3, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.millis(1000), new KeyValue(lblPlayer.opacityProperty(), 1, Interpolator.EASE_OUT))
-        );
-        animatelbl.setOnFinished(e->root.getChildren().remove(lblPlayer));
-        SequentialTransition st = new SequentialTransition(animatelbl);
-        st.play();
-
 
         root.setStyle("-fx-background-color: #B0B0B0");
-        root.setPrefWidth(1200/2);
-        root.setPrefHeight(800/2);
+
+        Rectangle rec = new Rectangle(200,200,200,200);
+        root.getChildren().add(rec);
+        tl = new Timeline(
+                new KeyFrame(Duration.millis(10000), new KeyValue(rec.scaleXProperty(), 1.5))
+        );
+        tl.play();
+/**这个控制timer运行频率的方法注意一下*/
+       AnimationTimer timer = new AnimationTimer() {
+           private int frameSkip = 0;
+           private final int SKIP = 60;
+            @Override
+            public void handle(long now) {
+                frameSkip++;
+                if(frameSkip <= SKIP){
+                    return;
+                }
+                if(tl == null){
+                    System.out.println("null");
+                } else {
+                    System.out.println("..");
+                }
+                frameSkip = 0;
+             }
+        };
+       timer.start();
+        root.setPrefWidth(1200);
+        root.setPrefHeight(800);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
     }
 }

@@ -1,8 +1,6 @@
 package myxiaoxiaole;
 
 import javafx.animation.*;
-import javafx.scene.ParallelCamera;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -10,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GridPanel extends Pane {
-    private static final int DROP_DURATION = 1400 /2;
+    private static final int DROP_DURATION = 1400 /3;
     private static final int CHANGE_DURATION = 800 /2;
     private static final int CHANGEBACK_DURATION = 400 /2;
     private static final int VANISH_DURATION = 200;
@@ -19,9 +17,9 @@ public class GridPanel extends Pane {
     //这几个基本数据的传递是个问题，现在暂时打算多写几个全局变量
     //暂时public，改完再说
     //另外我个人倾向于后面的循环中都用常数而不是数组的length
-    public static final int CELL_SIZE = 50;
+    public static final int CELL_SIZE = /*50*/60;
     public static final int CELL_X = 6;
-    public static final int CELL_Y = 12;
+    public static final int CELL_Y = /*12*/10;
     public static final int GRIDPANEL_WIDTH = CELL_SIZE * CELL_X;
     public static final int GRIDPANEL_HEIGHT = CELL_SIZE * CELL_Y;
 
@@ -30,33 +28,29 @@ public class GridPanel extends Pane {
     private final Jewel[][] grid;
     static Jewel selected = null;
     public volatile boolean inAnimation = false;
-    //这个集合可以不要了
-//	private Set<Integer> actionsToBeMade = new HashSet<>();/**0~4表示正常动作，5~9表示45和TL的直接动作动作，10~14表示TL动作。0~4分别表示物理攻击，增加护盾，魔法攻击，增加血量，封印*/
     private ArrayList<ArrayList<Jewel>> jewelsToBeDeleted = new ArrayList<>();
-	private boolean AsTurn = true;
-
-
+    public boolean AsTurn = true;
+    //唉。。
 
     public GridPanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         this.setWidth(GRIDPANEL_WIDTH);
         this.setHeight(GRIDPANEL_HEIGHT);
-//        this.setLayoutX(5);
         this.setLayoutY((GamePanel.HEIGHT - GRIDPANEL_HEIGHT) / 2);
         this.grid = new Jewel[CELL_X][CELL_Y];
 
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				do {
-					grid[i][j] = new Jewel(i * CELL_SIZE, j * CELL_SIZE);
+//					grid[i][j] = new Jewel(i * CELL_SIZE, j * CELL_SIZE);
+                    grid[i][j] = createJewel(i, j, i, j);
 				} while (checkDeleteWhileInitializing(i, j));
 
-				this.getChildren().addAll(createCellAndAddToArray(i, j), grid[i][j]);
+				this.getChildren().addAll(/*createCellAndAddToArray(i, j),*/ grid[i][j]);
 			}
 		}
 
-        setAllCellsToFront();//这个需要每次inAnimation调整的时候都要做一次
-//		System.out.println("done");
+//        setAllCellsToFront();//这个需要每次inAnimation调整的时候都要做一次
 
     }
 
@@ -65,14 +59,36 @@ public class GridPanel extends Pane {
         Cell cell = new Cell(i, j);
 
         /**当前状态下是不可以误点的，点了两个不能交换的主动权就交给了对方*/
-        cell.setOnMouseClicked(e -> {
+//        cell.setOnMouseClicked(e -> {
+//            if((!AsTurn && j < CELL_Y/2) || (AsTurn && j >= CELL_Y/2)) {
+//                if (!inAnimation) {
+//                    if (selected == null) {
+//                        selected = grid[i][j];
+//                    } else {
+//                        if (isAdjacent(grid[i][j], selected)) {
+//                            startAction(grid[i][j], selected);
+//                        }
+//                        selected = null;
+//                    }
+//                }
+//            }
+//        });
+
+        return cell;
+    }
+
+    private Jewel createJewel(int i, int j, int x, int y){//i，j是格子里的位置, x, y是起始的位置。好像只要传j就可以了。。
+        Jewel jewel = new Jewel(x*CELL_SIZE, y*CELL_SIZE);
+        jewel.setOnMouseClicked(e->{
+            System.out.print(jewel.getLayoutX()/CELL_SIZE + ":");
+            System.out.println(jewel.getLayoutY()/CELL_SIZE);
             if((!AsTurn && j < CELL_Y/2) || (AsTurn && j >= CELL_Y/2)) {
                 if (!inAnimation) {
                     if (selected == null) {
-                        selected = grid[i][j];
+                        selected = jewel;
                     } else {
-                        if (isAdjacent(grid[i][j], selected)) {
-                            startAction(grid[i][j], selected);
+                        if (isAdjacent(jewel, selected)) {
+                            startAction(jewel, selected);
                         }
                         selected = null;
                     }
@@ -80,20 +96,22 @@ public class GridPanel extends Pane {
             }
         });
 
-        return cell;
+        return jewel;
     }
 
-    private void setAllCellsToFront() {
-        //TODO 为什么不能不先toList?
-        this.getChildren().stream().filter(i -> i instanceof Cell).map(i -> (Cell) i).collect(Collectors.toList()).forEach(c -> c.toFront());
+//    private void setAllCellsToFront() {
+        //下面一个不行的原因大概是修改了 getChildren 的 list 吧
+//        this.getChildren().stream().filter(i -> i instanceof Cell).map(i -> (Cell) i).collect(Collectors.toList()).forEach(c -> c.toFront());
 //		this.getChildren().stream().filter(i -> i instanceof Cell).map(i -> (Cell)i).forEach(c->c.toFront());
 
-    }
+//    }
 
     private void endOneLoop(){
         inAnimation = false;
-        setAllCellsToFront();
+//        setAllCellsToFront();
         AsTurn = !AsTurn;
+        gamePanel.clock.set(GamePanel.ROUND_TIME);
+        gamePanel.continueTimer();
     }
 
     public boolean isAdjacent(Jewel jewel1, Jewel jewel2) {
@@ -104,6 +122,7 @@ public class GridPanel extends Pane {
     public void startAction(Jewel jewel1, Jewel jewel2) {//将interchange的动画重新赋给另一个，并且setOnAction。避免nonActionSwap的尴尬
         //TODO 是否要volatile？synchronized?
         inAnimation = true;
+        gamePanel.pauseTimer();
 
         ParallelTransition pt1 = interchange(jewel1, jewel2, CHANGE_DURATION);
         pt1.play();
@@ -148,25 +167,10 @@ public class GridPanel extends Pane {
      * @return
      */
     private Timeline move(int x, int y, int duration) {// 最核心部分，将实际位置与网格分隔开来
-//        double originX = grid[x][y].getX();
-//        double originY = grid[x][y].getY();
 
-        //上面那个setLocation没了，下面这个if判断也不能要了
-
-//		grid[x][y].setLocation(x * gridSize, y * gridSize);
-//		if (originX == grid[x][y].getX() && originY == grid[x][y].getY()) {
-//			return /*Optional.empty()*/ null;
-//		} else {
-//			PathTransition p = new PathTransition();
-//			p.setNode(grid[x][y]);
-//			p.setDuration(Duration.millis(duration));
-//			p.setPath(new Line(originX + Jewel.size / 2, originY + Jewel.size / 2, grid[x][y].getX() + Jewel.size / 2,
-//					grid[x][y].getY() + Jewel.size / 2));
-//			return p;
-
-        KeyValue kvX = new KeyValue(grid[x][y].layoutXProperty(), x * CELL_SIZE, Interpolator.EASE_OUT);
-        KeyValue kvY = new KeyValue(grid[x][y].layoutYProperty(), y * CELL_SIZE, Interpolator.EASE_OUT);
-        KeyFrame kf = new KeyFrame(Duration.millis(duration), kvX, kvY);
+//        KeyValue kvX = new KeyValue(grid[x][y].layoutXProperty(), x * CELL_SIZE, Interpolator.EASE_OUT);
+        KeyValue kvY = new KeyValue(grid[x][y].layoutYProperty(), y * CELL_SIZE, GameInterpolators.freeFall());
+        KeyFrame kf = new KeyFrame(Duration.millis(duration), /*kvX,*/ kvY);
         Timeline tl = new Timeline(kf);
         return tl;
 //		}
@@ -188,75 +192,6 @@ public class GridPanel extends Pane {
     }
 
     private boolean checkDeleteAndMark() {
-//        int temp;
-//        boolean haveFound = false;
-//        //第一次发现特殊消去情况的时候(45 or TL)，在那个位置setStatus，并且不设置isDelete，之后照常。
-//
-//        for (int i = 0; i < grid.length; i++) {//检查竖排三连
-//            temp = 1;
-//            for (int j = 1; j < grid[0].length; j++) {
-//                if (grid[i][j].isSameColor(grid[i][j - 1])) {
-//                    temp++;
-//                } else if (temp >= 3) {//这时[i][j]之前连续相等
-////                    grid[i][j - 1].setStatus((temp > 3) ? 1 : 0);
-////                    grid[i][j - 1].setToBeDelete(temp == 3);
-//
-//                    while (temp > 0) {
-//                        grid[i][j - temp].setToBeDelete(true);
-//                        haveFound = true;
-//                        temp--;
-//                    }
-//					temp = 1;
-//                } else {
-//                    temp = 1;
-//                }
-//            }
-//            if (temp >= 3) {
-////                grid[i][grid[0].length - 1].setStatus((temp > 3)? 1 : 0);
-////                grid[i][grid[0].length - 1].setToBeDelete(temp == 3);
-//
-//                while (temp > 0) {
-//                    grid[i][grid[0].length - temp].setToBeDelete(true);
-//                    haveFound = true;
-//                    temp--;
-//                }
-//            }
-//
-//        }
-//
-//        for (int j = 0; j < grid[0].length; j++) {//检查横排三连
-//            temp = 1;
-//            for (int i = 1; i < grid.length; i++) {
-//                if (grid[i][j].isSameColor(grid[i - 1][j])) {
-//                    temp++;
-//                } else if (temp >= 3) {
-////                    grid[i - 1][j].setStatus((temp > 3)? 1 : 0);
-////                    grid[i - 1][j].setToBeDelete(temp == 3);
-//
-//                    while (temp > 0) {
-//                        grid[i - temp][j].setToBeDelete(true);
-//                        haveFound = true;
-//                        temp--;
-//                    }
-//					temp = 1;
-//                } else {
-//                    temp = 1;
-//                }
-//            }
-//            if (temp >= 3) {
-////                grid[grid.length - 1][j].setStatus((temp > 3/* && grid[CELL_X - 1][j].getStatus() == 0*/) ? 1 : 0);
-////                grid[grid.length - 1][j].setToBeDelete(temp == 3);
-//
-//                while (temp > 0) {
-//                    grid[grid.length - temp][j].setToBeDelete(true);
-//                    haveFound = true;
-//                    temp--;
-//                }
-//            }
-//        }
-//
-//
-//        return haveFound;
 
         //下面两个准备放在一起，写代码的时候假设这两种情况不会重叠
         boolean haveFound = false;
@@ -267,11 +202,10 @@ public class GridPanel extends Pane {
             for (int j = 0; j < CELL_Y; j++) {
                 //检查横向
                 if(Jewel.isSameColor(grid[i][j], j1 = getGrid(i-1, j), j2 = getGrid(i-2, j), j3 = getGrid(i-3, j), j4 = getGrid(i-4, j))){
-                    Jewel.setToBeDelete(true, j1, j2, j3, j4);
-
-//                    actionsToBeMade.add(5 + grid[i][j].getColor());
+                    /*Jewel.setToBeDelete(true, j1, j2, j3, j4);*/
 
                     grid[i][j].setStatus(1);
+                    grid[i][j].selectImage(5 * grid[i][j].getStatus() + grid[i][j].getColor());
                     grid[i][j].setToBeDelete(false);
                     System.out.println();/**理由同下*/
 
@@ -282,7 +216,6 @@ public class GridPanel extends Pane {
 
                     jewelsToBeDeleted.remove(new ArrayList<>(Arrays.asList(j1, j2, j3)));
 
-//                    actionsToBeMade.add(5 + grid[i][j].getColor());
                     System.out.println();/**只是嫌重复烦*/
 
                     haveFound = true;
@@ -290,7 +223,6 @@ public class GridPanel extends Pane {
                     Jewel.setToBeDelete(true, grid[i][j], j1, j2);
                     jewelsToBeDeleted.add(new ArrayList<>(Arrays.asList(grid[i][j], j1, j2)));
 
-//                    actionsToBeMade.add(grid[i][j].getColor());
 
                     haveFound = true;
 
@@ -298,14 +230,13 @@ public class GridPanel extends Pane {
                 }
                 //检查竖向
                 if(Jewel.isSameColor(grid[i][j], j1 = getGrid(i, j-1), j2 = getGrid(i, j-2), j3 = getGrid(i, j-3), j4 = getGrid(i, j-4))){
-                    Jewel.setToBeDelete(true, j1, j2, j3, j4);
+                    /*Jewel.setToBeDelete(true, j1, j2, j3, j4);*/
 //                    jewelsToBeDeleted.add(new ArrayList<>(Arrays.asList(j1, j2, j3, j4)));
                     //如果是5个的话那么之前的四个一定已经添加过了，所以正好不用再添加
 
 
-//                    actionsToBeMade.add(5 + grid[i][j].getColor());
-
                     grid[i][j].setStatus(1);
+                    grid[i][j].selectImage(5 * grid[i][j].getStatus() + grid[i][j].getColor());
                     grid[i][j].setToBeDelete(false);//这句其实也不要了
 
                     haveFound = true;
@@ -317,14 +248,12 @@ public class GridPanel extends Pane {
                     jewelsToBeDeleted.remove(new ArrayList<>(Arrays.asList(j1, j2, j3)));
                     //注意还需要把之前三个添加的那个删掉
 
-//                    actionsToBeMade.add(5 + grid[i][j].getColor());
 
                     haveFound = true;
                 } else if(Jewel.isSameColor(grid[i][j], j1 = getGrid(i, j-1), j2 = getGrid(i, j-2))){/*有可能两个都有就是以九宫格右下角为顶点的这种情况，所以上面的if块才是这幅样子*/
                     Jewel.setToBeDelete(true, grid[i][j], j1, j2);
                     jewelsToBeDeleted.add(new ArrayList<>(Arrays.asList(grid[i][j], j1, j2)));
 
-//                    actionsToBeMade.add(grid[i][j].getColor());
 
                     haveFound = true;
                 }
@@ -333,7 +262,7 @@ public class GridPanel extends Pane {
         showJewelsToBeDeleted();
 
         // TL型，只是去找到节点
-        //TODO 有了jewelsToBeDeleted，其实可以不用再做遍历了。一会儿再改
+        //TODO 有了jewelsToBeDeleted，其实可以不用再做遍历了。一会儿再改。
         for (int i = 0; i < CELL_X; i++) {
             for (int j = 0; j < CELL_Y; j++) {
                 if ((Jewel.isSameColor(grid[i][j], getGrid(i + 1, j), getGrid(i, j - 1))
@@ -350,9 +279,10 @@ public class GridPanel extends Pane {
 
                     //把包含这个节点的所有（只能是2吧）List整合成一个一个List，并且删去节点这个元素。
                     //离散里头这一种集合运算好像有个专门的名字？
-                    ArrayList<Jewel> toBeMergedList1 = null;//如果用lambda又要用这个蛋疼的解决方法了。。
+                    ArrayList<Jewel> toBeMergedList1 = null;
                     Jewel tempJewel = grid[i][j];
-                    for(ArrayList<Jewel> temp: jewelsToBeDeleted.stream().collect(Collectors.toList())) {/**IDE终于错报一个了，这个stream不能少，否则concurrentModificationException*/
+                    for(ArrayList<Jewel> temp: jewelsToBeDeleted.stream().collect(Collectors.toList())) {
+                        /*IDE终于错报一个了，这个stream不能少，否则concurrentModificationException，但是这里似乎用literator比较好*/
                         if (temp.contains(tempJewel) && toBeMergedList1 == null) {
                             toBeMergedList1 = temp;
                             jewelsToBeDeleted.remove(temp);
@@ -365,9 +295,8 @@ public class GridPanel extends Pane {
                         }
                     }
 
-//                    actionsToBeMade.remove(grid[i][j].getColor());//因为肯定加过这个了
-//                    actionsToBeMade.add(5 + grid[i][j].getColor());//可能之前也加了这个，那么就不管他了。（所以"长TL"型没有特殊效果）
                     grid[i][j].setStatus(1);
+                    grid[i][j].selectImage(5 * grid[i][j].getStatus() + grid[i][j].getColor());
                     grid[i][j].setToBeDelete(false);
 
                     System.out.println("find TL type, location: " + i + "," + j);
@@ -400,23 +329,15 @@ public class GridPanel extends Pane {
                 int count = -1;
                 for (int j = 0; j < grid[0].length; j++) {
                     if (grid[i][j].isToBeDelete()) {
-//                        vanish(grid[i][j]);
-
-                        //0~4和5~9对应的只能有一个，但是可以和10~14的重复
-//                        if(grid[i][j].getStatus() == 1) {//这里的if可以不要的//利用set不重复的属性
-//                            actionsToBeMade.add(grid[i][j].actionNum());
-//                        }
 
                         for (int temp = 0; temp < j; temp++) {
                             grid[i][j - temp] = grid[i][j - temp - 1];
                         }
-                        grid[i][0] = new Jewel(i * CELL_SIZE, count * CELL_SIZE);
+//                        grid[i][0] = new Jewel(i * CELL_SIZE, count * CELL_SIZE);
+                        grid[i][0] = createJewel(i, 0, i, count);
                         this.getChildren().add(grid[i][0]);
 
                         count--;
-                    } else if (grid[i][j].getStatus() == 1) {
-                        //TODO 只有两种方块了，下面这个不用写式子了
-                        grid[i][j].selectImage(5 * grid[i][j].getStatus() + grid[i][j].getColor());
                     }
                 }
             }
@@ -426,19 +347,14 @@ public class GridPanel extends Pane {
                 int count = 0;//因为是左上角
                 for (int j = grid[0].length - 1; j >= 0; j--) {
                     if (grid[i][j].isToBeDelete()) {
-//                        vanish(grid[i][j]);
-
-//                        actionsToBeMade.add(grid[i][j].actionNum());
 
                         for (int temp = 0; temp < grid[0].length - 1 - j; temp++) {
                             grid[i][j + temp] = grid[i][j + temp + 1];
                         }
-                        grid[i][grid[0].length - 1] = new Jewel(i * CELL_SIZE, CELL_Y * CELL_SIZE + count * CELL_SIZE);
+//                        grid[i][grid[0].length - 1] = new Jewel(i * CELL_SIZE, CELL_Y * CELL_SIZE + count * CELL_SIZE);
+                        grid[i][grid[0].length - 1] = createJewel(i, grid[0].length-1, i, CELL_Y + count);
                         this.getChildren().add(grid[i][grid[0].length - 1]);
-//
                         count++;
-                    } else if (grid[i][j].getStatus() == 1) {
-                        grid[i][j].selectImage(5 * grid[i][j].getStatus() + grid[i][j].getColor());
                     }
                 }
             }
@@ -456,13 +372,12 @@ public class GridPanel extends Pane {
         }
 
 
-//        gamePanel.processActions(actionsToBeMade, AsTurn? gamePanel.playerA : gamePanel.playerB);
-
 
         //这里负责做消失（攻击）的动画
         //可以直接通过一个list的个数来决定是不是要发动两次攻击
         SequentialTransition attackSt = new SequentialTransition();
         ParallelTransition preparePt = new ParallelTransition();
+//        attackSt.getChildren().add(preparePt);
         for (ArrayList<Jewel> list:
                 jewelsToBeDeleted) {
             preparePt.getChildren().add(prepareAttack(list));
@@ -470,19 +385,18 @@ public class GridPanel extends Pane {
         }
 
         attackSt.setOnFinished(e -> {
-            gamePanel.getChildren().removeAll(gamePanel.getChildren().stream().filter(l -> l instanceof Label).collect(Collectors.toList()));/**和Attack方法里的代码呼应，都很蠢。。*/
+            gamePanel.getChildren().removeAll(gamePanel.getChildren().stream().filter(l -> l instanceof attackLabel).collect(Collectors.toList()));/**和Attack方法里的代码呼应，都很蠢。。*/
             if (checkDeleteAndMark()) {
-                delete(delay);// 这算调递归了吧
+                delete(delay);// 这算调递归吧
             } else {
                 endOneLoop();
             }
         });
 
-        //这种方法和用sequence一样吗？
+        //这种方法和用sequence一样吗？但是我改成sequence好像不行。。应该可以啊。。
         preparePt.setOnFinished(e->{
             attackSt.play();
         });
-//
 
         preparePt.play();
 
@@ -497,38 +411,33 @@ public class GridPanel extends Pane {
         ParallelTransition pt = new ParallelTransition();
         Jewel randomJewel = jewels.get(0);
 
-//        for (Jewel jewel:
-//             jewels) {
-//            if(jewel.getStatus() == 1){
-//                randomJewel.setStatus(1);
-//            }
-//        }
-
-
-
-//        gamePanel.processActions();
-
-        double originX = randomJewel.getLayoutX();//先这样保险着写，能不能放进去原理还有点不清楚
-        double originY = randomJewel.getLayoutY();
-        //可能地址有问题
-        for (Jewel jewel:
-             jewels) {//大括号每次都是一个新的大括号，而tl只在这个大括号里
-            Timeline tl = new Timeline(
-                    new KeyFrame(Duration.millis(100), new KeyValue(jewel.scaleXProperty(), 1.4, Interpolator.EASE_OUT)),
-                    new KeyFrame(Duration.millis(100), new KeyValue(jewel.scaleYProperty(), 1.4, Interpolator.EASE_OUT)),
-                    new KeyFrame(Duration.millis(200), new KeyValue(jewel.layoutXProperty(), originX + 30, Interpolator.EASE_IN)),
-                    new KeyFrame(Duration.millis(200), new KeyValue(jewel.layoutYProperty(), originY + 20, Interpolator.EASE_IN))
-            );
-
-            if(jewel != randomJewel){
-                tl.setOnFinished(e->{
-                        GridPanel.this.getChildren().remove(jewel);
-                });
+        if(randomJewel.getColor() == 4){
+            for (Jewel jewel : jewels) {
+                pt.getChildren().add(vanish(jewel));
             }
+        } else {
+            double originX = randomJewel.getLayoutX();//先这样保险着写，能不能放进去原理还有点不清楚
+            double originY = randomJewel.getLayoutY();
+            //可能地址有问题
+            for (Jewel jewel:
+                    jewels) {
+                Timeline tl = new Timeline(
+                        new KeyFrame(Duration.millis(100), new KeyValue(jewel.scaleXProperty(), 1.4, Interpolator.EASE_OUT)),
+                        new KeyFrame(Duration.millis(100), new KeyValue(jewel.scaleYProperty(), 1.4, Interpolator.EASE_OUT)),
+                        new KeyFrame(Duration.millis(200), new KeyValue(jewel.layoutXProperty(), originX + 30, Interpolator.EASE_IN)),
+                        new KeyFrame(Duration.millis(200), new KeyValue(jewel.layoutYProperty(), originY + 20, Interpolator.EASE_IN))
+                );
 
-            pt.getChildren().add(tl);
+                if(jewel != randomJewel){
+                    tl.setOnFinished(e->{
+                        GridPanel.this.getChildren().remove(jewel);
+                    });
+                }
+
+                pt.getChildren().add(tl);
+            }
         }
-//        pt.play();
+
         return pt;
     }
 
@@ -537,26 +446,28 @@ public class GridPanel extends Pane {
         jewels.stream().filter(j -> j.getStatus() == 1).findAny().ifPresent(j->randomJewel.setStatus(1));
         int size = jewels.size();
 
-        Timeline attackTL;
+        if(randomJewel.getColor() == 5) return new SequentialTransition();
+
+        Timeline lblTL;
         if(randomJewel.getStatus() == 1){
-            attackTL = gamePanel.processActions(AsTurn, (randomJewel.getColor() + 10));
+            lblTL = gamePanel.processActions(AsTurn, (randomJewel.getColor() + 10));
         } else if(size > 3){
-            attackTL = gamePanel.processActions(AsTurn, (randomJewel.getColor() + 5));
+            lblTL = gamePanel.processActions(AsTurn, (randomJewel.getColor() + 5));
         } else {
-            attackTL = gamePanel.processActions(AsTurn, (randomJewel.getColor()));
+            lblTL = gamePanel.processActions(AsTurn, (randomJewel.getColor()));
         }
 
         Timeline moveTL = new Timeline(//这个应该如果是运行的时候才去得到property的话，这么写就大概没什么问题
-                new KeyFrame(Duration.millis(300), new KeyValue(randomJewel.layoutXProperty(), GRIDPANEL_WIDTH/2)),
-                new KeyFrame(Duration.millis(300), new KeyValue(randomJewel.layoutYProperty(), (AsTurn && randomJewel.isAttackJewel() || (!AsTurn && !randomJewel.isAttackJewel())? B_POSITION : GRIDPANEL_HEIGHT)))
+                new KeyFrame(Duration.millis(400), new KeyValue(randomJewel.layoutXProperty(), GRIDPANEL_WIDTH/2)),
+                new KeyFrame(Duration.millis(400), new KeyValue(randomJewel.layoutYProperty(), (AsTurn && randomJewel.isAttackJewel() || (!AsTurn && !randomJewel.isAttackJewel())? B_POSITION : GRIDPANEL_HEIGHT), GameInterpolators.yInterpolatro()))
         );
 
 
         SequentialTransition st = new SequentialTransition();
-        st.getChildren().addAll(moveTL, attackTL);
+        st.getChildren().addAll(moveTL, lblTL);
         st.setOnFinished(e->{
             GridPanel.this.getChildren().remove(randomJewel);
-            gamePanel.getChildren().stream().filter(l -> l instanceof Label).forEach(l->l.setOpacity(0));/**代码这样写有点不好看，但是我拿不到lblPlayer的引用啊，最后做完一轮一起删*/
+            gamePanel.getChildren().stream().filter(l -> l instanceof attackLabel).forEach(l->l.setOpacity(0));/**代码这样写有点不雅，但是我拿不到lblPlayer的引用啊，最后做完一轮一起删*/
         });
 
 
@@ -574,6 +485,14 @@ public class GridPanel extends Pane {
             }
             System.out.println();
         }
+    }
+
+    public Timeline vanish(Jewel jewel){
+        Timeline tl = new Timeline(
+                new KeyFrame(Duration.millis(300), new KeyValue(jewel.opacityProperty(), 0))
+        );
+        tl.setOnFinished(e->GridPanel.this.getChildren().remove(jewel));
+        return tl;
     }
 }
 

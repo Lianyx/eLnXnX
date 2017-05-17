@@ -13,10 +13,16 @@ public class Images {
 
     static {
         for (int i = 0; i < 5; i++) {
-
-            jewelNormalImages[i] = new Image("/./images/" + i +".png");
+//            jewelNormalImages[i] = new Image("/./images/" + i + ".gif");
             jewel45Images[i] = new Image("/./images/" + (i+5) + ".png");
             jewelTLImages[i] = new Image("/./images/" + (i+10) + ".png");
         }
+
+        jewelNormalImages[0] = new Image("/./images/final/attack.jpg");
+        jewelNormalImages[1] = new Image("/./images/final/shleid.jpg");
+        jewelNormalImages[2] = new Image("/./images/final/2.gif");
+        jewelNormalImages[3] = new Image("/./images/final/HP.jpg");
+        jewelNormalImages[4] = new Image("/./images/4.png");
+
     }
 }
