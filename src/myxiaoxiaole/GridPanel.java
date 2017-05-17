@@ -80,9 +80,10 @@ public class GridPanel extends Pane {
     private Jewel createJewel(int i, int j, int x, int y){//i，j是格子里的位置, x, y是起始的位置。好像只要传j就可以了。。
         Jewel jewel = new Jewel(x*CELL_SIZE, y*CELL_SIZE);
         jewel.setOnMouseClicked(e->{
-            System.out.print(jewel.getLayoutX()/CELL_SIZE + ":");
-            System.out.println(jewel.getLayoutY()/CELL_SIZE);
             if((!AsTurn && j < CELL_Y/2) || (AsTurn && j >= CELL_Y/2)) {
+                System.out.print(jewel.getLayoutX()/CELL_SIZE + ":");
+                System.out.println(jewel.getLayoutY()/CELL_SIZE);
+                System.out.println(selected);
                 if (!inAnimation) {
                     if (selected == null) {
                         selected = jewel;
@@ -168,9 +169,9 @@ public class GridPanel extends Pane {
      */
     private Timeline move(int x, int y, int duration) {// 最核心部分，将实际位置与网格分隔开来
 
-//        KeyValue kvX = new KeyValue(grid[x][y].layoutXProperty(), x * CELL_SIZE, Interpolator.EASE_OUT);
+        KeyValue kvX = new KeyValue(grid[x][y].layoutXProperty(), x * CELL_SIZE, Interpolator.EASE_OUT);
         KeyValue kvY = new KeyValue(grid[x][y].layoutYProperty(), y * CELL_SIZE, GameInterpolators.freeFall());
-        KeyFrame kf = new KeyFrame(Duration.millis(duration), /*kvX,*/ kvY);
+        KeyFrame kf = new KeyFrame(Duration.millis(duration), kvX, kvY);
         Timeline tl = new Timeline(kf);
         return tl;
 //		}

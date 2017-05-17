@@ -107,6 +107,7 @@ public class GamePanel extends Pane {
 			if(clock.get().equals("0")){
 				clock.setValue(ROUND_TIME);
 				gridPanel.AsTurn = !gridPanel.AsTurn;
+				GridPanel.selected = null;//不然的话我可以先点一个不靠边界的然后对方就点不了了
 			} else {
 				clock.set(String.valueOf(Integer.parseInt(clock.getValue())-1));
 			}
