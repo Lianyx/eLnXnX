@@ -43,7 +43,7 @@ public class GridPanel extends Pane {
 			for (int j = 0; j < grid[0].length; j++) {
 				do {
 //					grid[i][j] = new Jewel(i * CELL_SIZE, j * CELL_SIZE);
-                    grid[i][j] = createJewel(i, j, i, j);
+                    grid[i][j] = createJewel(i, j);
 				} while (checkDeleteWhileInitializing(i, j));
 
 				this.getChildren().addAll(/*createCellAndAddToArray(i, j),*/ grid[i][j]);
@@ -77,10 +77,10 @@ public class GridPanel extends Pane {
         return cell;
     }
 
-    private Jewel createJewel(int i, int j, int x, int y){//i，j是格子里的位置, x, y是起始的位置。好像只要传j就可以了。。
+    private Jewel createJewel(int x, int y){//i，j是格子里的位置, x, y是起始的位置。好像只要传j就可以了。。
         Jewel jewel = new Jewel(x*CELL_SIZE, y*CELL_SIZE);
         jewel.setOnMouseClicked(e->{
-            if((!AsTurn && j < CELL_Y/2) || (AsTurn && j >= CELL_Y/2)) {
+            if((!AsTurn && jewel.getGridY() < CELL_Y/2) || (AsTurn && jewel.getGridY() >= CELL_Y/2)) {//移动了以后grid[][]变了，但是这里设定的能不能改没有变，点的时候肯定是静止的，所以可以用layoutX/Y来获得i,j
                 System.out.print(jewel.getLayoutX()/CELL_SIZE + ":");
                 System.out.println(jewel.getLayoutY()/CELL_SIZE);
                 System.out.println(selected);
@@ -335,7 +335,7 @@ public class GridPanel extends Pane {
                             grid[i][j - temp] = grid[i][j - temp - 1];
                         }
 //                        grid[i][0] = new Jewel(i * CELL_SIZE, count * CELL_SIZE);
-                        grid[i][0] = createJewel(i, 0, i, count);
+                        grid[i][0] = createJewel(i, count);
                         this.getChildren().add(grid[i][0]);
 
                         count--;
@@ -353,7 +353,7 @@ public class GridPanel extends Pane {
                             grid[i][j + temp] = grid[i][j + temp + 1];
                         }
 //                        grid[i][grid[0].length - 1] = new Jewel(i * CELL_SIZE, CELL_Y * CELL_SIZE + count * CELL_SIZE);
-                        grid[i][grid[0].length - 1] = createJewel(i, grid[0].length-1, i, CELL_Y + count);
+                        grid[i][grid[0].length - 1] = createJewel(i, CELL_Y + count);
                         this.getChildren().add(grid[i][grid[0].length - 1]);
                         count++;
                     }
@@ -411,6 +411,7 @@ public class GridPanel extends Pane {
     private ParallelTransition prepareAttack(ArrayList<Jewel> jewels){
         ParallelTransition pt = new ParallelTransition();
         Jewel randomJewel = jewels.get(0);
+        randomJewel.toFront();
 
         if(randomJewel.getColor() == 4){
             for (Jewel jewel : jewels) {

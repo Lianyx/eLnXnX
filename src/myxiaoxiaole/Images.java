@@ -20,7 +20,7 @@ public class Images {
 
         jewelNormalImages[0] = new Image("/./images/final/attack.jpg");
         jewelNormalImages[1] = new Image("/./images/final/shleid.jpg");
-        jewelNormalImages[2] = new Image("/./images/final/2.gif");
+        jewelNormalImages[2] = new Image("/./images/final/mage.jpg");
         jewelNormalImages[3] = new Image("/./images/final/HP.jpg");
         jewelNormalImages[4] = new Image("/./images/4.png");
 

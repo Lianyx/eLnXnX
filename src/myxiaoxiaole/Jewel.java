@@ -23,10 +23,10 @@ public class Jewel extends ImageView{
 
 	//这两个现在用不到
 	public int getGridX(){
-		return (int)(getX()/size);
+		return (int)(getLayoutX()/size);
 	}
 	public int getGridY(){
-		return (int)(getY()/size);
+		return (int)(getLayoutY()/size);
 	}
 
 	public int getStatus() {
