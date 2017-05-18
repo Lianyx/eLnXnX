@@ -1,5 +1,8 @@
 package myxiaoxiaole;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.*;
@@ -8,7 +11,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
+import javax.swing.text.html.ImageView;
 import java.util.Set;
 
 /**
@@ -22,6 +27,7 @@ public class PlayerPanel extends Pane {
 
     public Label lblHPPoint;
     public Label lblACPoint;
+    private ImageView playerView;
 
     private IntegerProperty HPProperty = new SimpleIntegerProperty(1000);
     private IntegerProperty ACProperty = new SimpleIntegerProperty(500);
@@ -39,10 +45,10 @@ public class PlayerPanel extends Pane {
         Label lblHP = new Label("HP");
         Label lblAC = new Label("AC");
         //StringProperty和StringBinding有什么区别啊...
-        lblHPPoint = new Label();
-        lblACPoint = new Label();
-        lblHPPoint.textProperty().bind(HPProperty.asString());
-        lblACPoint.textProperty().bind(ACProperty.asString());
+        lblHPPoint = new Label("1000");
+        lblACPoint = new Label("500");
+//        lblHPPoint.textProperty().bind(HPProperty.asString());
+//        lblACPoint.textProperty().bind(ACProperty.asString());
 
         //TODO 数字的动画
 
@@ -77,13 +83,49 @@ public class PlayerPanel extends Pane {
         this.getChildren().addAll(lblHP, lblAC, lblHPPoint, lblACPoint);
 
         HPProperty.addListener((observable, o,n)->{
-            if((int)n == 0){
+            int oldValue = (int) o;
+            int newValue = (int) n;
+            int gap = Math.abs(oldValue - newValue);
+            int change = (newValue > oldValue) ? 1 : -1;
+
+            //这里应该考虑到如果一起修改的话
+            if(oldValue > newValue){
+                //TODO 受伤的动画
+            } else {
+                //TODO 加血的动画
+            }
+
+            if(newValue == 0){
                 //TODO 这里可以考虑加动画
                 gamePanel.setLayerOn();
             } else {
-                ;
+                lblHPPoint.setText(String.valueOf(oldValue));
+                Timeline tl = new Timeline(
+                        new KeyFrame(Duration.millis(5), e->lblHPPoint.setText(String.valueOf(Integer.parseInt(lblHPPoint.getText()) + change)))
+                );
+                tl.setCycleCount(gap);
+                tl.play();
             }
         });
+
+        ACProperty.addListener((observable, o, n) -> {
+            int oldValue = (int) o;
+            int newValue = (int) n;
+            int gap = Math.abs(oldValue - newValue);
+            int change = (newValue > oldValue) ? 1 : -1;
+
+            if(oldValue > newValue){
+
+            }
+
+            lblACPoint.setText(String.valueOf(oldValue));
+            Timeline tl = new Timeline(
+                    new KeyFrame(Duration.millis(5), e-> lblACPoint.setText(String.valueOf(Integer.parseInt(lblACPoint.getText()) + change)))
+            );
+            tl.setCycleCount(gap);
+            tl.play();
+        });
+
 
     }
 

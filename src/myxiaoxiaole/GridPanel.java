@@ -2,6 +2,9 @@ package myxiaoxiaole;
 
 import javafx.animation.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.util.*;
@@ -171,7 +174,7 @@ public class GridPanel extends Pane {
     private Timeline move(int x, int y, int duration) {// 最核心部分，将实际位置与网格分隔开来
 
         KeyValue kvX = new KeyValue(grid[x][y].layoutXProperty(), x * CELL_SIZE, Interpolator.EASE_OUT);
-        KeyValue kvY = new KeyValue(grid[x][y].layoutYProperty(), y * CELL_SIZE, GameInterpolators.freeFall());
+        KeyValue kvY = new KeyValue(grid[x][y].layoutYProperty(), y * CELL_SIZE, GameInterpolators.freeFall);
         KeyFrame kf = new KeyFrame(Duration.millis(duration), kvX, kvY);
         Timeline tl = new Timeline(kf);
         return tl;
@@ -409,7 +412,7 @@ public class GridPanel extends Pane {
 
 
 
-    private ParallelTransition prepareAttack(ArrayList<Jewel> jewels){
+    private Animation prepareAttack(ArrayList<Jewel> jewels){
         ParallelTransition pt = new ParallelTransition();
         Jewel randomJewel = jewels.get(0);
         randomJewel.toFront();
@@ -444,12 +447,12 @@ public class GridPanel extends Pane {
         return pt;
     }
 
-    private SequentialTransition attack(ArrayList<Jewel> jewels){
+    private Animation attack(ArrayList<Jewel> jewels){
         Jewel randomJewel = jewels.get(0);
         jewels.stream().filter(j -> j.getStatus() == 1).findAny().ifPresent(j->randomJewel.setStatus(1));
         int size = jewels.size();
 
-        if(randomJewel.getColor() == 5) return new SequentialTransition();
+        if(randomJewel.getColor() == 5) return new SequentialTransition();//对应上面的vanish()
 
         Timeline lblTL;
         if(randomJewel.getStatus() == 1){
@@ -460,21 +463,77 @@ public class GridPanel extends Pane {
             lblTL = gamePanel.processActions(AsTurn, (randomJewel.getColor()));
         }
 
-        Timeline moveTL = new Timeline(//这个应该如果是运行的时候才去得到property的话，这么写就大概没什么问题
-                new KeyFrame(Duration.millis(400), new KeyValue(randomJewel.layoutXProperty(), GRIDPANEL_WIDTH/2)),
-                new KeyFrame(Duration.millis(400), new KeyValue(randomJewel.layoutYProperty(), (AsTurn && randomJewel.isAttackJewel() || (!AsTurn && !randomJewel.isAttackJewel())? B_POSITION : GRIDPANEL_HEIGHT), GameInterpolators.yInterpolatro()))
-        );
-
+        Animation moveAnimation = new Timeline();
+        if(randomJewel.getColor() == 0){
+            moveAnimation = physicalAttack(randomJewel);
+        } else if (randomJewel.getColor() == 2) {
+            moveAnimation = magicAttack(randomJewel);
+        } else if ((randomJewel.getColor() == 1) ||(randomJewel.getColor() == 3)) {
+            moveAnimation = supplyAnimation(randomJewel);
+        } else {
+            moveAnimation = new Timeline(//这个应该如果是运行的时候才去得到property的话，这么写就大概没什么问题
+                    new KeyFrame(Duration.millis(400), new KeyValue(randomJewel.layoutXProperty(), GRIDPANEL_WIDTH / 2)),
+                    new KeyFrame(Duration.millis(400), new KeyValue(randomJewel.layoutYProperty(), (AsTurn && randomJewel.isAttackJewel() || (!AsTurn && !randomJewel.isAttackJewel()) ? B_POSITION : GRIDPANEL_HEIGHT), GameInterpolators.yInterpolatro()))
+            );
+        }
 
         SequentialTransition st = new SequentialTransition();
-        st.getChildren().addAll(moveTL, lblTL);
+        st.getChildren().addAll(moveAnimation, lblTL);
         st.setOnFinished(e->{
             GridPanel.this.getChildren().remove(randomJewel);
             gamePanel.getChildren().stream().filter(l -> l instanceof attackLabel).forEach(l->l.setOpacity(0));/**代码这样写有点不雅，但是我拿不到lblPlayer的引用啊，最后做完一轮一起删*/
         });
 
-
         return st;
+    }
+
+    private Animation physicalAttack(Jewel jewel){
+        ParallelTransition pa1 = new ParallelTransition();
+//        System.out.println("fitHeight: "+jewel.getFitHeight());
+
+        //这条line非常诡异。。似乎坐标是相对于jewel本身来计算的
+        PathTransition pt = new PathTransition(Duration.millis(400), new Line(/*jewel.getLayoutX() + CELL_SIZE/2,*/CELL_SIZE/2, /*jewel.getLayoutY() + CELL_SIZE/2,*/CELL_SIZE/2, GRIDPANEL_WIDTH/2 - jewel.getLayoutX(), (AsTurn ? B_POSITION : GRIDPANEL_HEIGHT) - jewel.getLayoutY()), jewel);
+        pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pt.setInterpolator(new Interpolator() {
+            @Override
+            protected double curve(double t) {
+                return t*t*t*t;
+            }
+        });
+        Timeline recTl = new Timeline(
+                new KeyFrame(Duration.millis(400), new KeyValue(jewel.scaleYProperty(), 0))
+        );
+
+        pa1.getChildren().add(pt);
+        pa1.getChildren().add(recTl);
+
+
+        return pa1;
+    }
+
+    private Animation magicAttack(Jewel jewel){
+        //同上
+        QuadCurve curve = new QuadCurve(CELL_SIZE/2, CELL_SIZE/2, (AsTurn ? GRIDPANEL_WIDTH : 0 * GRIDPANEL_WIDTH) - jewel.getLayoutX(), (AsTurn ? 0.3 * GRIDPANEL_HEIGHT: 0.7 * GRIDPANEL_HEIGHT) - jewel.getLayoutY(), GRIDPANEL_WIDTH/2 - jewel.getLayoutX(), (AsTurn ? B_POSITION : GRIDPANEL_HEIGHT) - jewel.getLayoutY());
+        PathTransition pt = new PathTransition(Duration.millis(600), curve, jewel);
+
+        pt.setInterpolator(new Interpolator() {
+            @Override
+            protected double curve(double t) {
+                return Math.pow(t,1.65);
+            }
+        });
+
+        return pt;
+    }
+
+    private Animation supplyAnimation(Jewel jewel){
+        Timeline tl = new Timeline(
+                new KeyFrame(Duration.millis(300), new KeyValue(jewel.scaleXProperty(), 2)),
+             new KeyFrame(Duration.millis(300), new KeyValue(jewel.scaleYProperty(), 2)),
+             new KeyFrame(Duration.millis(300), new KeyValue(jewel.opacityProperty(), 0))
+        );
+
+        return tl;
     }
 
 
@@ -490,7 +549,7 @@ public class GridPanel extends Pane {
         }
     }
 
-    public Timeline vanish(Jewel jewel){
+    public Animation vanish(Jewel jewel){
         Timeline tl = new Timeline(
                 new KeyFrame(Duration.millis(300), new KeyValue(jewel.opacityProperty(), 0))
         );

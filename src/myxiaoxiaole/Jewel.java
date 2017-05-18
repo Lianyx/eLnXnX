@@ -40,12 +40,10 @@ public class Jewel extends ImageView{
 	public Jewel(double x, double y) {
 		size = (int) (GridPanel.CELL_SIZE);
 //		color = (int) (Math.random() * TYPE + 1);
-		color = (int) (new Random().nextDouble() * (TYPE));
+		color = new Random().nextInt(TYPE);
 
 		selectImage(color);
 		setLocation(x, y);
-
-
 
 //		setOnMouseMoved(e -> {
 //			this.setFill(Color.GRAY);

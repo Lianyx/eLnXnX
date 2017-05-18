@@ -12,9 +12,7 @@ public class GameInterpolators {
             }
         };
     }
-
-    public static Interpolator freeFall(){
-        return new Interpolator() {
+    public static Interpolator freeFall = new Interpolator() {
             @Override
             protected double curve(double t) {
                 if(t <= 0.8){
@@ -27,5 +25,5 @@ public class GameInterpolators {
 //                return t;
             }
         };
-    }
+
 }
