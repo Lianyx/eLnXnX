@@ -12,13 +12,28 @@ public class MenuPanel extends Pane {
         this.setPrefWidth(GamePanel.WIDTH);
         this.setPrefHeight(GamePanel.HEIGHT);
 
-        Button btOnePlayer = new Button("1 Players");
+        Button btOnePlayer = new Button("1 Player");
         Button btTwoPlayers = new Button("2 Players");//这个要突出一点
         Button btOnline = new Button("Online");
+
+        btOnePlayer.getStyleClass().add("game-btMenu");
+        btTwoPlayers.getStyleClass().add("game-btMenu");
+        btOnline.getStyleClass().add("game-btMenu");
 
         btOnePlayer.setLayoutY(GamePanel.HEIGHT/2 - 100);
         btTwoPlayers.setLayoutY(GamePanel.HEIGHT/2);
         btOnline.setLayoutY(GamePanel.HEIGHT/2 + 100);
+
+        btOnePlayer.setPrefWidth(300);
+        btTwoPlayers.setPrefWidth(300);
+        btOnline.setPrefWidth(300);
+
+//        btTwoPlayers.setOnMouseEntered(e->));
+
+        btOnePlayer.setLayoutX((GamePanel.WIDTH - btOnePlayer.getPrefWidth()) * 0.5);
+        btTwoPlayers.setLayoutX((GamePanel.WIDTH - btTwoPlayers.getPrefWidth()) * 0.5);
+        btOnline.setLayoutX((GamePanel.WIDTH - btOnline.getPrefWidth()) * 0.5);
+
 
         this.getChildren().addAll(btOnePlayer, btTwoPlayers, btOnline);
 

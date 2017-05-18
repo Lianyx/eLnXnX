@@ -18,7 +18,7 @@ public class GridPanel extends Pane {
     //暂时public，改完再说
     //另外我个人倾向于后面的循环中都用常数而不是数组的length
     public static final int CELL_SIZE = /*50*/60;
-    public static final int CELL_X = 6;
+    public static final int CELL_X = 7;
     public static final int CELL_Y = /*12*/10;
     public static final int GRIDPANEL_WIDTH = CELL_SIZE * CELL_X;
     public static final int GRIDPANEL_HEIGHT = CELL_SIZE * CELL_Y;
@@ -34,9 +34,10 @@ public class GridPanel extends Pane {
 
     public GridPanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-        this.setWidth(GRIDPANEL_WIDTH);
-        this.setHeight(GRIDPANEL_HEIGHT);
-        this.setLayoutY((GamePanel.HEIGHT - GRIDPANEL_HEIGHT) / 2);
+//        this.setWidth(GRIDPANEL_WIDTH);
+//        this.setHeight(GRIDPANEL_HEIGHT);
+        this.setLayoutY((GamePanel.HEIGHT - GRIDPANEL_HEIGHT) * 0.5);
+        this.setLayoutX((GamePanel.WIDTH - GRIDPANEL_WIDTH) * 0.5);
         this.grid = new Jewel[CELL_X][CELL_Y];
 
 		for (int i = 0; i < grid.length; i++) {

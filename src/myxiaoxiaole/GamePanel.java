@@ -33,18 +33,19 @@ public class GamePanel extends Pane {
 	public GamePanel() {
 		this.setPrefWidth(WIDTH);
 		this.setPrefHeight(HEIGHT);
+		this.setStyle("-fx-background-color: lightcyan");
 		gridPanel = new GridPanel(this);
 
 		playerA = new PlayerPanel(0, this);
-		playerA.setLayoutX(GridPanel.GRIDPANEL_WIDTH);
-		playerA.setLayoutY(GamePanel.HEIGHT/2);
+		playerA.setLayoutX(0);
+		playerA.setLayoutY(HEIGHT - OFFSET_HEIGHT);
 		playerA.setScaleY(-1);//翻转，playerA是下面的那个
-		playerA.lblHPPoint.setScaleY(-1);
-		playerA.lblACPoint.setScaleY(-1);
+		playerA.setScaleX(-1);
 
+		//怎么翻转再说。。
 		playerB = new PlayerPanel(1, this);
-		playerB.setLayoutX(GridPanel.GRIDPANEL_WIDTH);
-		playerB.setLayoutY(OFFSET_HEIGHT);
+		playerB.setLayoutX(100);
+		playerB.setLayoutY(0);
 //		playerB.lblHPPoint.setScaleY(-1);
 //		playerB.lblACPoint.setScaleY(-1);
 //		playerB.lblHPPoint.setScaleX(-1);
@@ -204,7 +205,7 @@ public class GamePanel extends Pane {
 			});
 			return returnTL;
 		} else {
-//			player.setHP(0);//TODO 加一个BooleanProperty判断是否胜利
+//			player.setHP(0);
 			System.out.println("kill");
 			returnTL = animateLbl(isA, "kill");
 			returnTL.setOnFinished(e->{

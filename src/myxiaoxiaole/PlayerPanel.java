@@ -32,42 +32,48 @@ public class PlayerPanel extends Pane {
         this.number = number;
         this.gamePanel = gamePanel;
 
-        this.setPrefWidth(80);
-        this.setPrefHeight(300);
+        this.setPrefWidth(350);
+        this.setPrefHeight(GamePanel.OFFSET_HEIGHT);
 
+        Label lblHP = new Label("HP");
+        Label lblAC = new Label("AC");
         //StringProperty和StringBinding有什么区别啊...
         lblHPPoint = new Label();
         lblACPoint = new Label();
         lblHPPoint.textProperty().bind(HPProperty.asString());
         lblACPoint.textProperty().bind(ACProperty.asString());
 
-        Rectangle recHP = new Rectangle();
-        Rectangle recAC = new Rectangle();
-        recHP.setFill(Color.web("#FF6C6C"));//可以设置血条变色
-        recAC.setFill(Color.web("#94F283"));
+        //TODO 数字的动画
 
-        recHP.setWidth(20);
-        recHP.setArcHeight(20);
-        recHP.setArcWidth(20);
-        recAC.setWidth(20);
-        recAC.setArcHeight(20);
-        recAC.setArcWidth(20);
+//        Rectangle recHP = new Rectangle();
+//        Rectangle recAC = new Rectangle();
+//        recHP.setFill(Color.web("#FF6C6C"));//可以设置血条变色
+//        recAC.setFill(Color.web("#94F283"));
 
-        recHP.setLayoutX(20);
-        recAC.setLayoutX(40);
+//        recHP.setWidth(20);
+//        recHP.setArcHeight(20);
+//        recHP.setArcWidth(20);
+//        recAC.setWidth(20);
+//        recAC.setArcHeight(20);
+//        recAC.setArcWidth(20);
+//
+//        recHP.setLayoutX(20);
+//        recAC.setLayoutX(40);
 
         //无力。multiply里只能写0.28，不能写280/1000。因为这是整除啊。。
-        recHP.heightProperty().bind(HPProperty.multiply(0.28));
-        recAC.heightProperty().bind(ACProperty.multiply(0.28));
+//        recHP.heightProperty().bind(HPProperty.multiply(0.28));
+//        recAC.heightProperty().bind(ACProperty.multiply(0.28));
 
-        lblHPPoint.setLayoutX(10);
-        lblACPoint.setLayoutX(40);
+        lblHPPoint.setLayoutX(50);lblHPPoint.setLayoutY(20);
+        lblACPoint.setLayoutX(50);lblACPoint.setLayoutY(50);
+        lblHP.setLayoutX(20);lblHP.setLayoutY(20);
+        lblAC.setLayoutX(20);lblAC.setLayoutY(50);
 //        lblHPPoint.setScaleY(-1);
 //        lblACPoint.setScaleY(-1);
-        lblHPPoint.layoutYProperty().bind(recHP.heightProperty());
-        lblACPoint.layoutYProperty().bind(recAC.heightProperty());
+//        lblHPPoint.layoutYProperty().bind(recHP.heightProperty());
+//        lblACPoint.layoutYProperty().bind(recAC.heightProperty());
 
-        this.getChildren().addAll(recHP, recAC, lblHPPoint, lblACPoint);
+        this.getChildren().addAll(lblHP, lblAC, lblHPPoint, lblACPoint);
 
         HPProperty.addListener((observable, o,n)->{
             if((int)n == 0){
