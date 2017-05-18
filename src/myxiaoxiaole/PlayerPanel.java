@@ -15,6 +15,7 @@ import java.util.Set;
  * Created by tiberius on 2017/5/6.
  */
 public class PlayerPanel extends Pane {
+    //TODO 应该下面是正着看。但是这样的话问题很多啊。。怎么才能清楚地知道自己和对方的血量？还是有个大长条？
     public static final int WIDTH = 100;
     public static final int HEIGHT = 300;
     public static final int REC_HEIGHT = 270;
@@ -79,6 +80,8 @@ public class PlayerPanel extends Pane {
             if((int)n == 0){
                 //TODO 这里可以考虑加动画
                 gamePanel.setLayerOn();
+            } else {
+                ;
             }
         });
 
