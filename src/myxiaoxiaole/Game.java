@@ -14,7 +14,6 @@ public class Game extends Application {
 	public void start(Stage stage) throws Exception {
 		StackPane root = new StackPane();
 		Scene scene = new Scene(root);
-		GamePanel gamePanel = new GamePanel();
 		MenuPanel menuPanel = new MenuPanel();
 
 		root.getChildren().add(menuPanel);

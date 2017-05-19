@@ -29,7 +29,7 @@ public class GridPanel extends Pane {
     private GamePanel gamePanel;
 
     private final Jewel[][] grid;
-    static Jewel selected = null;
+    public Jewel selected = null;
     public volatile boolean inAnimation = false;
     private ArrayList<ArrayList<Jewel>> jewelsToBeDeleted = new ArrayList<>();
     public boolean AsTurn = true;
@@ -58,28 +58,28 @@ public class GridPanel extends Pane {
 
     }
 
-    private Cell createCellAndAddToArray(int i, int j) {
-        //这个代码感觉有个地方不是很明白。i和j这样岂不是相当于就一直保留了？
-        Cell cell = new Cell(i, j);
-
-        /**当前状态下是不可以误点的，点了两个不能交换的主动权就交给了对方*/
-//        cell.setOnMouseClicked(e -> {
-//            if((!AsTurn && j < CELL_Y/2) || (AsTurn && j >= CELL_Y/2)) {
-//                if (!inAnimation) {
-//                    if (selected == null) {
-//                        selected = grid[i][j];
-//                    } else {
-//                        if (isAdjacent(grid[i][j], selected)) {
-//                            startAction(grid[i][j], selected);
-//                        }
-//                        selected = null;
-//                    }
-//                }
-//            }
-//        });
-
-        return cell;
-    }
+//    private Cell createCellAndAddToArray(int i, int j) {
+//        //这个代码感觉有个地方不是很明白。i和j这样岂不是相当于就一直保留了？
+//        Cell cell = new Cell(i, j);
+//
+//        /**当前状态下是不可以误点的，点了两个不能交换的主动权就交给了对方*/
+////        cell.setOnMouseClicked(e -> {
+////            if((!AsTurn && j < CELL_Y/2) || (AsTurn && j >= CELL_Y/2)) {
+////                if (!inAnimation) {
+////                    if (selected == null) {
+////                        selected = grid[i][j];
+////                    } else {
+////                        if (isAdjacent(grid[i][j], selected)) {
+////                            startAction(grid[i][j], selected);
+////                        }
+////                        selected = null;
+////                    }
+////                }
+////            }
+////        });
+//
+//        return cell;
+//    }
 
     private Jewel createJewel(int x, int y){//i，j是格子里的位置, x, y是起始的位置。好像只要传j就可以了。。
         Jewel jewel = new Jewel(x*CELL_SIZE, y*CELL_SIZE);
@@ -117,6 +117,10 @@ public class GridPanel extends Pane {
         AsTurn = !AsTurn;
         gamePanel.clock.set(GamePanel.ROUND_TIME);
         gamePanel.continueTimer();
+
+        if((!AsTurn) && gamePanel.getLevel() == 2){
+            AIAction();
+        }
     }
 
     public boolean isAdjacent(Jewel jewel1, Jewel jewel2) {
@@ -534,6 +538,113 @@ public class GridPanel extends Pane {
         );
 
         return tl;
+    }
+
+    public void AIAction(){
+        ArrayList<List<Jewel>> jewelsCanSwap = new ArrayList<>();
+
+        for (int i = 0; i < CELL_X; i++) {
+            for (int j = 0; j < CELL_Y / 2 - 1; j++) {//这里先不考虑边界上的，-1
+                //下面的一些代码可以合并
+                //第一种情况
+                if(Jewel.isSameColor(grid[i][j], getGrid(i-1, j-1), getGrid(i-2, j-1))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i][j-1]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i+1, j-1), getGrid(i+2, j-1))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i][j-1]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i-1, j+1), getGrid(i-2, j+1))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i][j+1]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i+1, j+1), getGrid(i+2, j+1))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i][j+1]));
+                }
+
+                if(Jewel.isSameColor(grid[i][j], getGrid(i+1, j-1), getGrid(i+1, j-2))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i+1][j]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i-1, j-1), getGrid(i-1, j-2))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i-1][j]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i-1, j+1), getGrid(i-1, j+2))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i-1][j]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i+1, j+1), getGrid(i+1, j+2))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i+1][j]));
+                }
+
+                //第二种情况
+                if(Jewel.isSameColor(grid[i][j], getGrid(i-2, j), getGrid(i-3, j))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i-1][j]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i+2, j), getGrid(i+3, j))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i+1][j]));
+                }
+
+                if(Jewel.isSameColor(grid[i][j], getGrid(i, j-2), getGrid(i, j-3))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i][j-1]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i, j+2), getGrid(i, j+3))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i][j+1]));
+                }
+
+                //第三种情况
+                if(Jewel.isSameColor(grid[i][j], getGrid(i-1, j-1), getGrid(i+1, j-1))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i][j-1]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i+1, j-1), getGrid(i+1, j+1))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i][j+1]));
+                }
+
+                if(Jewel.isSameColor(grid[i][j], getGrid(i+1, j-1), getGrid(i+1, j+1))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i+1][j]));
+                }
+                if(Jewel.isSameColor(grid[i][j], getGrid(i-1, j-1), getGrid(i-1, j+1))){
+                    jewelsCanSwap.add(Arrays.asList(grid[i][j], grid[i-1][j]));
+                }
+
+            }
+        }
+
+        if(jewelsCanSwap.isEmpty()){
+            int i = new Random().nextInt(CELL_X-2);
+            int j = new Random().nextInt(CELL_Y/2 - 2);
+            int i1=0, j1=0;
+            int random = new Random().nextInt(4);
+            switch (random){
+                case 0:
+                    i1 = i+1;
+                    j1 = j;
+                    break;
+                case 1:
+                    i1 = i;
+                    j1 = j -1;
+                    break;
+                case 2:
+                    i1 = i - 1;
+                    j1 = j;
+                    break;
+                case 3:
+                    i1 = i;
+                    j1 = j+1;
+                    break;
+            }
+
+            startAction(grid[i][j], grid[i1][j1]);
+        } else {
+            Collections.shuffle(jewelsCanSwap);
+            List<Jewel> jewelsToBeSwap = jewelsCanSwap.get(0);
+
+            try{
+                Thread.sleep(1000);
+            } catch(InterruptedException e){
+                System.out.println("我也不知道怎么办啊😰");
+            }
+
+            startAction(jewelsToBeSwap.get(0), jewelsToBeSwap.get(1));
+        }
+
+
     }
 
 

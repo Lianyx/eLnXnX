@@ -28,9 +28,12 @@ public class GamePanel extends Pane {
 	private Button btQuit,btContinue;
 	private Label lblTime;
 
+	private int level;//0表示网络，1表示双人，2表示单机
 
 
-	public GamePanel() {
+	public GamePanel(int level) {
+		this.level = level;
+
 		this.setPrefWidth(WIDTH);
 		this.setPrefHeight(HEIGHT);
 		this.setStyle("-fx-background-color: lightcyan");
@@ -108,7 +111,12 @@ public class GamePanel extends Pane {
 			if(clock.get().equals("0")){
 				clock.setValue(ROUND_TIME);
 				gridPanel.AsTurn = !gridPanel.AsTurn;
-				GridPanel.selected = null;//不然的话我可以先点一个不靠边界的然后对方就点不了了
+				gridPanel.selected = null;//不然的话我可以先点一个不靠边界的然后对方就点不了了
+
+				if(!gridPanel.AsTurn){
+					gridPanel.AIAction();
+				}
+
 			} else {
 				clock.set(String.valueOf(Integer.parseInt(clock.getValue())-1));
 			}
@@ -126,6 +134,9 @@ public class GamePanel extends Pane {
 
 	public void setLayerOn(){
 		layerOnProperty.set(true);
+	}
+	public int getLevel(){
+		return level;
 	}
 
 

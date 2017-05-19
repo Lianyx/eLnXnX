@@ -39,17 +39,18 @@ public class MenuPanel extends Pane {
 
         this.getChildren().addAll(btOnePlayer, btTwoPlayers, btOnline);
 
-        btTwoPlayers.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                StackPane root = (StackPane) MenuPanel.this.getParent();
-                root.getChildren().add(new GamePanel());
-            }
+        btOnePlayer.setOnAction(e->{
+           StackPane root = (StackPane) this.getParent();
+           root.getChildren().add(new GamePanel(2));
         });
 
-        //e->{
-//        StackPane root = (StackPane) this.getParent();
-//        root.getChildren().add(new GamePanel());
-//    })
+        btTwoPlayers.setOnAction(e->{
+            StackPane root = (StackPane) this.getParent();
+            root.getChildren().add(new GamePanel(1));
+        });
+
+
+
+
     }
 }
