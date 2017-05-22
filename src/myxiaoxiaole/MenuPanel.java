@@ -18,9 +18,9 @@ public class MenuPanel extends Pane {
         Button btTwoPlayers = new Button("2 Players");//这个要突出一点
         Button btOnline = new Button("Online");
 
-        btOnePlayer.getStyleClass().add("game-btMenu");
-        btTwoPlayers.getStyleClass().add("game-btMenu");
-        btOnline.getStyleClass().add("game-btMenu");
+        btOnePlayer.getStyleClass().addAll("start-bt1","start-bt:hover");
+        btTwoPlayers.getStyleClass().addAll("start-bt2","start-bt:hover");
+        btOnline.getStyleClass().addAll("start-bt3","start-bt:hover");
 
         btOnePlayer.setLayoutY(GamePanel.HEIGHT/2 - 100);
         btTwoPlayers.setLayoutY(GamePanel.HEIGHT/2);

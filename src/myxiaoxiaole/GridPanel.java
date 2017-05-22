@@ -523,7 +523,7 @@ public class GridPanel extends Pane {
         pt.setInterpolator(new Interpolator() {
             @Override
             protected double curve(double t) {
-                return Math.pow(t,1.65);
+                return Math.pow(t,10);
             }
         });
 

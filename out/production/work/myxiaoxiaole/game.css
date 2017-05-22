@@ -23,3 +23,25 @@
     /*-fx-pref-width: 300;这个为什么没用？*/
     -fx-highlight-text-fill: white;/*这句是什么意思。。*/
 }
+
+.start-bt1{
+	-fx-font: 30 arial;
+    -fx-base: #30c39e;
+    -fx-alignment: center;
+}
+
+.start-bt2{
+	-fx-font: 30 arial;
+    -fx-base: #037ef3;
+    -fx-alignment: center;
+}
+
+.start-bt3{
+	-fx-font: 30 arial;
+    -fx-base: #0a8ea0;
+    -fx-alignment: center;
+}
+
+.start-bt:hover{
+	 -fx-background-color: #f3f4f7; 
+}

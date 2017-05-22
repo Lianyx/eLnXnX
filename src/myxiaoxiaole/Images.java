@@ -10,6 +10,7 @@ public class Images {
     public static Image[] jewelNormalImages = new Image[5];
     public static Image[] jewel45Images = new Image[5];
     public static Image[] jewelTLImages = new Image[5];
+    public static Image background = new Image("/./images/final/background.jpg");
 
     static {
         for (int i = 0; i < 5; i++) {
@@ -18,11 +19,11 @@ public class Images {
             jewelTLImages[i] = new Image("/./images/" + (i+10) + ".png");
         }
 
-        jewelNormalImages[0] = new Image("/./images/final/attack.jpg");
-        jewelNormalImages[1] = new Image("/./images/final/shield.jpg");
-        jewelNormalImages[2] = new Image("/./images/final/mage.jpg");
-        jewelNormalImages[3] = new Image("/./images/final/HP.jpg");
-        jewelNormalImages[4] = new Image("/./images/final/nothing.jpg");
+        jewelNormalImages[0] = new Image("/./images/final/attack.png");
+        jewelNormalImages[1] = new Image("/./images/final/shield.png");
+        jewelNormalImages[2] = new Image("/./images/final/mage.png");
+        jewelNormalImages[3] = new Image("/./images/final/HP.png");
+        jewelNormalImages[4] = new Image("/./images/final/nothing.png");
 
     }
 }
