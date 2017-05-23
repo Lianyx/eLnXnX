@@ -11,11 +11,12 @@ public class Images {
     public static Image[] jewel45Images = new Image[5];
     public static Image[] jewelTLImages = new Image[5];
     public static Image background = new Image("/./images/final/background.jpg");
+    public static Image entering = new Image("/./images/final/entering.jpg");
 
     static {
         for (int i = 0; i < 5; i++) {
 //            jewelNormalImages[i] = new Image("/./images/" + i + ".gif");
-            jewel45Images[i] = new Image("/./images/" + (i+5) + ".png");
+            jewel45Images[i] = new Image("/./images/" + (i+5) + ".gif");
             jewelTLImages[i] = new Image("/./images/" + (i+10) + ".png");
         }
 

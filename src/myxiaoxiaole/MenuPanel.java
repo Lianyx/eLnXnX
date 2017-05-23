@@ -3,6 +3,11 @@ package myxiaoxiaole;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -13,7 +18,9 @@ public class MenuPanel extends Pane {
     public MenuPanel(){
         this.setPrefWidth(GamePanel.WIDTH);
         this.setPrefHeight(GamePanel.HEIGHT);
-
+		BackgroundImage myBI = new BackgroundImage(Images.entering, BackgroundRepeat.REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		this.setBackground(new Background(myBI));
         Button btOnePlayer = new Button("1 Player");
         Button btTwoPlayers = new Button("2 Players");//这个要突出一点
         Button btOnline = new Button("Online");
