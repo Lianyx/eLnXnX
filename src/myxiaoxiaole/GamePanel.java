@@ -4,6 +4,7 @@ import javafx.animation.*;
 import javafx.beans.property.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -28,17 +29,22 @@ public class GamePanel extends Pane {
 	private Label lblTime;
 
 	private int level;// 0表示网络，1表示双人，2表示单机
-
+	public void setBackground(Image image){
+		BackgroundImage myBI = new BackgroundImage(image, BackgroundRepeat.REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		this.setBackground(new Background(myBI));
+	};
+	
 	public GamePanel(int level) {
 		this.level = level;
-
 		this.setPrefWidth(WIDTH);
 		this.setPrefHeight(HEIGHT);
-		BackgroundImage myBI = new BackgroundImage(Images.background, BackgroundRepeat.REPEAT,
+		BackgroundImage myBI = new BackgroundImage(Images.background1, BackgroundRepeat.REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		this.setBackground(new Background(myBI));
 		gridPanel = new GridPanel(this);
-
+		gridPanel.toFront();
+		;
 		playerA = new PlayerPanel(0, this);
 		playerA.setLayoutX(0);
 		playerA.setLayoutY(HEIGHT - OFFSET_HEIGHT);
@@ -55,13 +61,13 @@ public class GamePanel extends Pane {
 		// playerB.lblACPoint.setScaleX(-1);
 		// 为了方便看先去掉，下面的标签同理。如果用rotate?
 
-		Line divideLine = new Line();
-		divideLine.setStartX(0);
-		divideLine.endXProperty().bind(this.widthProperty());
-		divideLine.setStartY(HEIGHT / 2);
-		divideLine.setEndY(HEIGHT / 2);
-		divideLine.setStroke(Color.ORANGE);
-		divideLine.setStrokeWidth(6);
+		// Line divideLine = new Line();
+		// divideLine.setStartX(0);
+		// divideLine.endXProperty().bind(this.widthProperty());
+		// divideLine.setStartY(HEIGHT / 2);
+		// divideLine.setEndY(HEIGHT / 2);
+		// divideLine.setStroke(Color.ORANGE);
+		// divideLine.setStrokeWidth(6);
 
 		Button bMenu = new Button("menu");
 		bMenu.setLayoutX(10);
@@ -70,7 +76,7 @@ public class GamePanel extends Pane {
 			layerOnProperty.set(true);
 		});
 
-		this.getChildren().addAll(bMenu, gridPanel, playerA, playerB, divideLine);
+		this.getChildren().addAll(bMenu, playerA, playerB, gridPanel); // ,divideLine);
 
 		btContinue = new Button("Continue");
 		btQuit = new Button("Quit");
@@ -100,8 +106,9 @@ public class GamePanel extends Pane {
 		});
 
 		lblTime = new Label();
+		// lblTime.getStyleClass();
 		lblTime.textProperty().bind(clock);
-		lblTime.setLayoutX(300);
+		lblTime.setLayoutX(400);
 		lblTime.setLayoutY(20);
 		this.getChildren().add(lblTime);
 		timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {

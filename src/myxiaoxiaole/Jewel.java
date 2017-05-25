@@ -2,11 +2,12 @@ package myxiaoxiaole;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 import java.util.Random;
 
 
-public class Jewel extends ImageView{
+public class Jewel extends Pane{
 
 	private final int color;
 	static int size;
@@ -74,15 +75,27 @@ public class Jewel extends ImageView{
 	//TODO 希望用background来省去toFront的麻烦，但是没有用
 	public void selectImage(int i){
 		if(i < 5){
-			this.setImage(Images.jewelNormalImages[i]);
+			ImageView a = new ImageView(Images.jewelNormalImages[i]);
+			a.setFitWidth(size);
+			a.setPreserveRatio(true);
+			a.setSmooth(true);
+			this.getChildren().add(a);
 		} else if(i < 10){
-			this.setImage(Images.jewel45Images[i - 5]);
+			ImageView a = new ImageView(Images.jewel45Images[i - 5]);
+			a.setFitWidth(size);
+			a.setPreserveRatio(true);
+			a.setSmooth(true);
+			this.getChildren().add(a);
 		} else if(i < 15){
-			this.setImage(Images.jewelTLImages[i - 10]);
+			ImageView a = new ImageView(Images.jewelTLImages[i - 10]);
+			a.setFitWidth(size);
+			a.setPreserveRatio(true);
+			a.setSmooth(true);
+			this.getChildren().add(a);
 		}
-		this.setFitWidth(size);
-		this.setPreserveRatio(true);
-		this.setSmooth(true);
+//		this.setFitWidth(size);
+//		this.setPreserveRatio(true);
+//		this.setSmooth(true);
 //		this.setCache(true);
 	}
 

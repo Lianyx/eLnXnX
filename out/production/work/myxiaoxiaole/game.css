@@ -45,3 +45,12 @@
 .start-bt:hover{
 	 -fx-background-color: #f3f4f7; 
 }
+
+.bt-circle{
+	  -fx-border-color: gray;
+	  -fx-border-width: 2px;
+}
+
+.bt-jewel{
+	 -fx-background-color: apparent;
+}

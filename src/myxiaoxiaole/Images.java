@@ -10,7 +10,8 @@ public class Images {
     public static Image[] jewelNormalImages = new Image[5];
     public static Image[] jewel45Images = new Image[5];
     public static Image[] jewelTLImages = new Image[5];
-    public static Image background = new Image("/./images/final/background.jpg");
+    public static Image background1 = new Image("/./images/final/background1.jpg");
+    public static Image background2 = new Image("/./images/final/background2.jpg");
     public static Image entering = new Image("/./images/final/entering.jpg");
 
     static {

@@ -24,10 +24,12 @@ public class PlayerPanel extends Pane {
     public static final int WIDTH = 100;
     public static final int HEIGHT = 300;
     public static final int REC_HEIGHT = 270;
+    public static final double RATIO1 = 0.28;        //初值0.28
+    public static final double RATIO2 = 0.56;
 
     public Label lblHPPoint;
     public Label lblACPoint;
-    private ImageView playerView;
+//    private ImageView playerView;
 
     private IntegerProperty HPProperty = new SimpleIntegerProperty(1000);
     private IntegerProperty ACProperty = new SimpleIntegerProperty(500);
@@ -52,24 +54,28 @@ public class PlayerPanel extends Pane {
 
         //TODO 数字的动画
 
-//        Rectangle recHP = new Rectangle();
-//        Rectangle recAC = new Rectangle();
-//        recHP.setFill(Color.web("#FF6C6C"));//可以设置血条变色
-//        recAC.setFill(Color.web("#94F283"));
+        Rectangle recHP = new Rectangle();
+        Rectangle recAC = new Rectangle();
+        recHP.setFill(Color.web("#FF6C6C"));//可以设置血条变色
+        recAC.setFill(Color.web("#94F283"));
 
-//        recHP.setWidth(20);
-//        recHP.setArcHeight(20);
-//        recHP.setArcWidth(20);
-//        recAC.setWidth(20);
-//        recAC.setArcHeight(20);
-//        recAC.setArcWidth(20);
-//
-//        recHP.setLayoutX(20);
-//        recAC.setLayoutX(40);
+        recHP.setHeight(20);
+        recHP.setArcHeight(20);
+        recHP.setArcWidth(20);
+        recAC.setHeight(20);
+        recAC.setArcHeight(20);
+        recAC.setArcWidth(20);
 
-        //无力。multiply里只能写0.28，不能写280/1000。因为这是整除啊。。
+        recHP.setLayoutY(20);
+        recAC.setLayoutY(50);
+
+//        无力。multiply里只能写0.28，不能写280/1000。因为这是整除啊。。
 //        recHP.heightProperty().bind(HPProperty.multiply(0.28));
 //        recAC.heightProperty().bind(ACProperty.multiply(0.28));
+        recHP.setWidth(1000*RATIO1);
+        recAC.setWidth(500*RATIO2);
+
+        this.getChildren().addAll(recHP, recAC);
 
         lblHPPoint.setLayoutX(50);lblHPPoint.setLayoutY(20);
         lblACPoint.setLayoutX(50);lblACPoint.setLayoutY(50);
@@ -96,15 +102,21 @@ public class PlayerPanel extends Pane {
             }
 
             if(newValue == 0){
-                //TODO 这里可以考虑加动画
+                //TODO 死了动画就要停了。
                 gamePanel.setLayerOn();
             } else {
                 lblHPPoint.setText(String.valueOf(oldValue));
                 Timeline tl = new Timeline(
-                        new KeyFrame(Duration.millis(5), e->lblHPPoint.setText(String.valueOf(Integer.parseInt(lblHPPoint.getText()) + change)))
+                        new KeyFrame(Duration.millis(20), e->lblHPPoint.setText(String.valueOf(Integer.parseInt(lblHPPoint.getText()) + change)))
                 );
                 tl.setCycleCount(gap);
                 tl.play();
+
+                Timeline tl2 = new Timeline(
+                        new KeyFrame(Duration.millis(20), e->recHP.setWidth((recHP.getWidth()/RATIO1 + change)*RATIO1))
+                );
+                tl2.setCycleCount(gap);
+                tl2.play();
             }
         });
 
@@ -114,16 +126,18 @@ public class PlayerPanel extends Pane {
             int gap = Math.abs(oldValue - newValue);
             int change = (newValue > oldValue) ? 1 : -1;
 
-            if(oldValue > newValue){
-
-            }
-
             lblACPoint.setText(String.valueOf(oldValue));
             Timeline tl = new Timeline(
-                    new KeyFrame(Duration.millis(5), e-> lblACPoint.setText(String.valueOf(Integer.parseInt(lblACPoint.getText()) + change)))
+                    new KeyFrame(Duration.millis(20), e-> lblACPoint.setText(String.valueOf(Integer.parseInt(lblACPoint.getText()) + change)))
             );
             tl.setCycleCount(gap);
             tl.play();
+
+            Timeline tl2 = new Timeline(
+                    new KeyFrame(Duration.millis(20), e->recAC.setWidth((recAC.getWidth()/RATIO2 + change)*RATIO2))
+            );
+            tl2.setCycleCount(gap);
+            tl2.play();
         });
 
 
