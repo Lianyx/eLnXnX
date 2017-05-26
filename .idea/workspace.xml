@@ -2,10 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="082b5709-a178-4f52-bb06-88bf8bf8c601" name="Default" comment="图片的问题">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/work/.gitignore" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/Cell.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/Cell.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/Game.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/Game.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GameInterpolators$1.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GameInterpolators$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GameInterpolators$2.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GameInterpolators$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GameInterpolators.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GameInterpolators.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GamePanel.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GamePanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GridOperator.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GridOperator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GridPanel$1.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GridPanel$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GridPanel$2.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GridPanel$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GridPanel.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/GridPanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/Images.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/Images.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/Jewel.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/Jewel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/MenuPanel.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/MenuPanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/PlayerPanel.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/PlayerPanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/attackLabel.class" afterPath="$PROJECT_DIR$/out/production/work/myxiaoxiaole/attackLabel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/uiyj/MenuBackground$1.class" afterPath="$PROJECT_DIR$/out/production/work/uiyj/MenuBackground$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/uiyj/MenuBackground.class" afterPath="$PROJECT_DIR$/out/production/work/uiyj/MenuBackground.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/uiyj/RectangleUiyj$1.class" afterPath="$PROJECT_DIR$/out/production/work/uiyj/RectangleUiyj$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/uiyj/RectangleUiyj.class" afterPath="$PROJECT_DIR$/out/production/work/uiyj/RectangleUiyj.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/uiyj/rsces/Moon.class" afterPath="$PROJECT_DIR$/out/production/work/uiyj/rsces/Moon.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/uiyj/rsces/RotateUiyj.class" afterPath="$PROJECT_DIR$/out/production/work/uiyj/rsces/RotateUiyj.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/uiyj/rsces/Star.class" afterPath="$PROJECT_DIR$/out/production/work/uiyj/rsces/Star.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/uiyj/rsces/StarCircle.class" afterPath="$PROJECT_DIR$/out/production/work/uiyj/rsces/StarCircle.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/work/uiyj/rsces/Sun.class" afterPath="$PROJECT_DIR$/out/production/work/uiyj/rsces/Sun.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/myxiaoxiaole/Game.java" afterPath="$PROJECT_DIR$/src/myxiaoxiaole/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/myxiaoxiaole/GamePanel.java" afterPath="$PROJECT_DIR$/src/myxiaoxiaole/GamePanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/myxiaoxiaole/GridPanel.java" afterPath="$PROJECT_DIR$/src/myxiaoxiaole/GridPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/myxiaoxiaole/PlayerPanel.java" afterPath="$PROJECT_DIR$/src/myxiaoxiaole/PlayerPanel.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,46 +56,48 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TestAnimation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/uiyj/TestAnimation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="960">
-              <caret line="77" column="61" lean-forward="false" selection-start-line="77" selection-start-column="61" selection-end-line="77" selection-end-column="61" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MenuPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/MenuPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="49" column="11" lean-forward="false" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="11" />
+            <state relative-caret-position="570">
+              <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GridPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GridPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/GridPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="46" column="54" lean-forward="false" selection-start-line="46" selection-start-column="54" selection-end-line="46" selection-end-column="54" />
+            <state relative-caret-position="-9322">
+              <caret line="47" column="42" lean-forward="true" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
               <folding>
-                <element signature="e#20361#20506#0" expanded="true" />
-                <element signature="e#20505#20506#0" expanded="true" />
-                <element signature="e#21248#21402#0" expanded="true" />
-                <element signature="e#21401#21402#0" expanded="true" />
+                <element signature="e#4589#4963#0" expanded="true" />
+                <element signature="e#4962#4963#0" expanded="true" />
+                <element signature="e#23330#23481#0" expanded="true" />
+                <element signature="e#23480#23481#0" expanded="true" />
+                <element signature="e#24350#24503#0" expanded="true" />
+                <element signature="e#24502#24503#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GamePanel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GamePanel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/GamePanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1635">
-              <caret line="116" column="41" lean-forward="false" selection-start-line="116" selection-start-column="41" selection-end-line="116" selection-end-column="41" />
+            <state relative-caret-position="525">
+              <caret line="43" column="16" lean-forward="false" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="game.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/game.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -78,8 +106,18 @@
       <file leaf-file-name="PlayerPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/PlayerPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+            <state relative-caret-position="287">
+              <caret line="52" column="36" lean-forward="false" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Heroes.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/Heroes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -88,8 +126,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="375">
+              <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -197,10 +235,10 @@
         <option value="$PROJECT_DIR$/src/myxiaoxiaole/game.css" />
         <option value="$PROJECT_DIR$/src/uiyj/TestAnimation.java" />
         <option value="$PROJECT_DIR$/src/myxiaoxiaole/Jewel.java" />
-        <option value="$PROJECT_DIR$/src/myxiaoxiaole/PlayerPanel.java" />
-        <option value="$PROJECT_DIR$/src/myxiaoxiaole/Game.java" />
         <option value="$PROJECT_DIR$/src/myxiaoxiaole/MenuPanel.java" />
+        <option value="$PROJECT_DIR$/src/myxiaoxiaole/PlayerPanel.java" />
         <option value="$PROJECT_DIR$/src/myxiaoxiaole/GridPanel.java" />
+        <option value="$PROJECT_DIR$/src/myxiaoxiaole/Game.java" />
         <option value="$PROJECT_DIR$/src/myxiaoxiaole/GamePanel.java" />
       </list>
     </option>
@@ -217,7 +255,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="123" />
     <option name="y" value="23" />
-    <option name="width" value="1040" />
+    <option name="width" value="1412" />
     <option name="height" value="962" />
   </component>
   <component name="ProjectView">
@@ -235,37 +273,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="work" />
+              <option name="myItemId" value="eLnXnX" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="work" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="work" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="work" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="eLnXnX" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -856,6 +880,7 @@
       <workItem from="1495118752485" duration="4256000" />
       <workItem from="1495186016810" duration="4320000" />
       <workItem from="1495190813372" duration="69000" />
+      <workItem from="1495804963040" duration="2729000" />
     </task>
     <task id="LOCAL-00001" summary="勉强可以玩的有bug的版本">
       <created>1494229347546</created>
@@ -952,7 +977,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="220701000" />
+    <option name="totallyTimeSpent" value="223430000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -964,23 +989,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="123" y="23" width="1040" height="962" extended-state="0" />
+    <frame x="123" y="23" width="1412" height="962" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17011495" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962963" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11149425" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11149425" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988507" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2014028" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20510949" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24972129" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -993,7 +1019,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17011495" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873562" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1021,10 +1046,10 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988507" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11149425" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988507" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19745763" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20541082" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873562" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1061,7 +1086,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole1/GameXXL.java" />
     <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole1/gameManager.java" />
     <entry file="file://$PROJECT_DIR$/out/production/work/myxiaoxiaole/gameXXL.css" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/javafx-src.zip!/javafx/event/Event.java">
@@ -1174,13 +1198,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/LblPlayer.java" />
-    <entry file="file://$PROJECT_DIR$/src/uiyj/rsces/FlashText.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="41" column="13" lean-forward="false" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uiyj/rsces/FlashText.java" />
     <entry file="file://$PROJECT_DIR$/src/uiyj/BasicOpsTest.java" />
     <entry file="file://$PROJECT_DIR$/src/uiyj/Test.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/src.zip!/java/util/LinkedList.java">
@@ -1192,13 +1210,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/uiyj/TimelineEvents.java" />
     <entry file="file://$PROJECT_DIR$/src/uiyj/RotationExample.java" />
-    <entry file="file://$PROJECT_DIR$/src/uiyj/MatrixTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="52" column="37" lean-forward="false" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uiyj/MatrixTest.java" />
     <entry file="file://$PROJECT_DIR$/src/uiyj/ImageUiyj.java" />
     <entry file="file://$PROJECT_DIR$/src/uiyj/rsces/GIFTest.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/javafx-src.zip!/javafx/animation/AnimationAccessorImpl.java">
@@ -1230,13 +1242,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uiyj/ParticlesClockApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="194" column="5" lean-forward="true" selection-start-line="194" selection-start-column="5" selection-end-line="194" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uiyj/ParticlesClockApp.java" />
     <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/Cell.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -1245,13 +1251,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uiyj/TestInterpolator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="60" column="34" lean-forward="true" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/uiyj/TestInterpolator.java" />
     <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/GameInterpolators.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -1270,13 +1270,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/game.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Library/Containers/com.tencent.qq/Data/Library/Application Support/QQ/Users/1023596812/QQ/Temp.db/66A536AB-8217-4BBB-8EE1-B0A36BE4DA33.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1288,17 +1281,9 @@
           <caret line="45" column="26" lean-forward="false" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#511#512#0" expanded="true" />
-            <element signature="e#549#550#0" expanded="true" />
+            <element signature="e#511#512#0" expanded="false" />
+            <element signature="e#549#550#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1310,48 +1295,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/uiyj/TestAnimation.java">
+    <entry file="file://$PROJECT_DIR$/src/uiyj/TestAnimation.java" />
+    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/MenuPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="77" column="61" lean-forward="false" selection-start-line="77" selection-start-column="61" selection-end-line="77" selection-end-column="61" />
+        <state relative-caret-position="570">
+          <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/Heroes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/PlayerPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+        <state relative-caret-position="287">
+          <caret line="52" column="36" lean-forward="false" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/MenuPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/game.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="49" column="11" lean-forward="false" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/GamePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1635">
-          <caret line="116" column="41" lean-forward="false" selection-start-line="116" selection-start-column="41" selection-end-line="116" selection-end-column="41" />
+        <state relative-caret-position="255">
+          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/GridPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="46" column="54" lean-forward="false" selection-start-line="46" selection-start-column="54" selection-end-line="46" selection-end-column="54" />
+        <state relative-caret-position="-9322">
+          <caret line="47" column="42" lean-forward="true" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
           <folding>
-            <element signature="e#20361#20506#0" expanded="true" />
-            <element signature="e#20505#20506#0" expanded="true" />
-            <element signature="e#21248#21402#0" expanded="true" />
-            <element signature="e#21401#21402#0" expanded="true" />
+            <element signature="e#4589#4963#0" expanded="true" />
+            <element signature="e#4962#4963#0" expanded="true" />
+            <element signature="e#23330#23481#0" expanded="true" />
+            <element signature="e#23480#23481#0" expanded="true" />
+            <element signature="e#24350#24503#0" expanded="true" />
+            <element signature="e#24502#24503#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myxiaoxiaole/GamePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="43" column="16" lean-forward="false" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

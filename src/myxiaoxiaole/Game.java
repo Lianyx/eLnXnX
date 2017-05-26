@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Game extends Application {
 	public static void main(String[] args) {
@@ -26,6 +27,7 @@ public class Game extends Application {
 
 		stage.setScene(scene);
 //		stage.initStyle(StageStyle.UNDECORATED);
+		stage.setResizable(false);
 		stage.show();
 	}
 

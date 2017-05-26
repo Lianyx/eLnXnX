@@ -311,26 +311,24 @@ public class GamePanel extends Pane {
 		SequentialTransition returnST = new SequentialTransition();
 		attackLabel lblPlayer = lblPlayer(isA, text);
 		GamePanel.this.getChildren().add(lblPlayer);
+		//TODO 伤害的标签的动画
 		Timeline lblTL = new Timeline(
-				new KeyFrame(Duration.millis(300),
+				new KeyFrame(Duration.millis(200),
 						new KeyValue(lblPlayer.scaleXProperty(), 1.5, Interpolator.EASE_BOTH)),
-				new KeyFrame(Duration.millis(300),
+				new KeyFrame(Duration.millis(200),
 						new KeyValue(lblPlayer.scaleYProperty(), 1.5, Interpolator.EASE_BOTH)),
-				new KeyFrame(Duration.millis(450),
+				new KeyFrame(Duration.millis(350),
 						new KeyValue(lblPlayer.opacityProperty(), 1, Interpolator.EASE_OUT)));
-		// 后面被覆盖掉了。。。
-		lblTL.setOnFinished(e -> {
-			GamePanel.this.getChildren().remove(lblPlayer);
-		});
 		return lblTL;
 	}
 
+	//TODO 标签在这里
 	public attackLabel lblPlayer(boolean isA, String text) {
 		attackLabel lblPlayer = new attackLabel(text);
 		lblPlayer.getStyleClass().add("game-lblPoints");
 		lblPlayer.setOpacity(0);
 		lblPlayer.setLayoutX(GridPanel.GRIDPANEL_WIDTH * 0.2);
-
+		//TODO 这里改坐标
 		if (isA) {
 			lblPlayer.setLayoutY(GridPanel.GRIDPANEL_HEIGHT + GamePanel.OFFSET_HEIGHT + 30);
 		} else {

@@ -162,6 +162,39 @@ public class PlayerPanel extends Pane {
 			int gap = Math.abs(oldValue - newValue);
 			int change = (newValue > oldValue) ? 1 : -1;
 
+			//TODO 这里是从上面复制下来的
+			Timer timer1 = new Timer();
+			Timer timer2 = new Timer();
+			if (oldValue > newValue) {
+				heroA.setImage(Images.hero1hurted);
+				heroA.setScaleX(1.2);
+				heroA.setScaleY(1.2);
+				timer1.schedule(new TimerTask() {
+					public void run() {
+						heroA.setImage(Images.hero1);
+						heroA.setScaleX(1);
+						heroA.setScaleY(1);
+						this.cancel();
+					}
+				}, 3500);
+				// TODO 受伤的动画
+			} else {
+				heroA.setImage(Images.hero1attack);
+				heroA.setScaleX(1.2);
+				heroA.setScaleY(1.2);
+				heroA.setEffect(new Bloom());
+				timer2.schedule(new TimerTask() {
+					public void run() {
+						heroA.setEffect(new DropShadow(0, null));
+						heroA.setImage(Images.hero1);
+						heroA.setScaleX(1);
+						heroA.setScaleY(1);
+						this.cancel();
+					}
+				}, 3500);
+				// TODO 加血的动画
+			}
+
 			lblACPoint.setText(String.valueOf(oldValue));
 			Timeline tl = new Timeline(new KeyFrame(Duration.millis(20),
 					e -> lblACPoint.setText(String.valueOf(Integer.parseInt(lblACPoint.getText()) + change))));
