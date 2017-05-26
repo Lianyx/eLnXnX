@@ -253,7 +253,7 @@ public class GridPanel extends Pane {
 
 		// 下面两个准备放在一起，写代码的时候假设这两种情况不会重叠
 		boolean haveFound = false;
-		ArrayList<Jewel> tempList = new ArrayList<>();
+//		ArrayList<Jewel> tempList = new ArrayList<>();
 		Jewel j1, j2, j3, j4;
 
 		for (int i = 0; i < CELL_X; i++) {

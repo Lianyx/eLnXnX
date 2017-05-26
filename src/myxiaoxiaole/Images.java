@@ -13,7 +13,9 @@ public class Images {
     public static Image background1 = new Image("/./images/final/background1.jpg");
     public static Image background2 = new Image("/./images/final/background2.jpg");
     public static Image entering = new Image("/./images/final/entering.jpg");
-
+    public static Image hero1 = new Image("/./images/final/hero1.png");
+    public static Image hero1attack = new Image("/./images/final/hero1attack.gif");
+    public static Image hero1hurted = new Image("/./images/final/hero1hurted.gif");
     static {
         for (int i = 0; i < 5; i++) {
 //            jewelNormalImages[i] = new Image("/./images/" + i + ".gif");

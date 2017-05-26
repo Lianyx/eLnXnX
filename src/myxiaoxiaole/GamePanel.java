@@ -29,12 +29,13 @@ public class GamePanel extends Pane {
 	private Label lblTime;
 
 	private int level;// 0表示网络，1表示双人，2表示单机
-	public void setBackground(Image image){
-		BackgroundImage myBI = new BackgroundImage(image, BackgroundRepeat.REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+	public void setBackground(Image image) {
+		BackgroundImage myBI = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		this.setBackground(new Background(myBI));
 	};
-	
+
 	public GamePanel(int level) {
 		this.level = level;
 		this.setPrefWidth(WIDTH);
@@ -45,15 +46,15 @@ public class GamePanel extends Pane {
 		gridPanel = new GridPanel(this);
 		gridPanel.toFront();
 		;
-		playerA = new PlayerPanel(0, this);
-		playerA.setLayoutX(0);
+		playerA = new PlayerPanel(1, this);
+		playerA.setLayoutX(100);
 		playerA.setLayoutY(HEIGHT - OFFSET_HEIGHT);
-		playerA.setScaleY(-1);// 翻转，playerA是下面的那个
-		playerA.setScaleX(-1);
+		// playerA.setScaleY(-1);// 翻转，playerA是下面的那个
+		// playerA.setScaleX(-1);
 
 		// 怎么翻转再说。。
-		playerB = new PlayerPanel(1, this);
-		playerB.setLayoutX(100);
+		playerB = new PlayerPanel(0, this);
+		playerB.setLayoutX(0);
 		playerB.setLayoutY(0);
 		// playerB.lblHPPoint.setScaleY(-1);
 		// playerB.lblACPoint.setScaleY(-1);
@@ -76,7 +77,7 @@ public class GamePanel extends Pane {
 			layerOnProperty.set(true);
 		});
 
-		this.getChildren().addAll(bMenu, playerA, playerB, gridPanel); // ,divideLine);
+		this.getChildren().addAll(playerA, playerB, bMenu, gridPanel); // ,divideLine);
 
 		btContinue = new Button("Continue");
 		btQuit = new Button("Quit");
