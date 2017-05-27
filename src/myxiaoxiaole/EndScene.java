@@ -16,7 +16,7 @@ public class EndScene extends Pane {
 	public static final int WIDTH = GamePanel.WIDTH;
 	public static final int HEIGHT = GamePanel.HEIGHT;
 	Button reStartOnePlayer = new Button("Restart 1player");
-	Button reStartTwoPlayers = new Button("Restart 2player");
+	Button reStartTwoPlayers = new Button("Restart 2players");
 	Button reStartOnline = new Button("Restart online");
 	
 	public EndScene(Image image) {

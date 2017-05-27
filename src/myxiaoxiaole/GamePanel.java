@@ -76,8 +76,13 @@ public class GamePanel extends Pane {
 		// divideLine.setStrokeWidth(6);
 
 		Button bMenu = new Button("menu");
+		//TODO 这里改了 ！！！！！！！！！！！！！！！！！！！！！！！！！！！
 		bMenu.setLayoutX(10);
 		bMenu.setLayoutY(10);
+		bMenu.getStyleClass().add("start-bt5");
+		bMenu.setPrefHeight(20);
+		bMenu.setPrefWidth(80);
+		//TODO 我是分割线 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 		bMenu.setOnAction(e -> {
 			layerOnProperty.set(true);
 		});
@@ -85,12 +90,22 @@ public class GamePanel extends Pane {
 		this.getChildren().addAll(playerA, playerB, bMenu, gridPanel); // ,divideLine);
 
 		Pane pausePanel = new Pane();
+		//TODO这里改了 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+		pausePanel.setPrefWidth(WIDTH);
+		pausePanel.setPrefHeight(HEIGHT);
+		pausePanel.setBackground(new Background(new BackgroundImage(Images.pauseBackground, BackgroundRepeat.REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 		btContinue = new Button("Continue");
 		btQuit = new Button("Quit");
-		btQuit.setLayoutY(GamePanel.HEIGHT / 2);
+		btQuit.getStyleClass().add("start-bt3");
+//		btQuit.setLayoutY(GamePanel.HEIGHT / 2);
+		btQuit.setLayoutY((HEIGHT)/2+50-btQuit.getPrefHeight());
 		btQuit.setLayoutX(180);
-		btContinue.setLayoutY(GamePanel.HEIGHT / 2);
-		btContinue.setLayoutX(220);
+//		btContinue.setLayoutY(GamePanel.HEIGHT / 2);
+		btContinue.getStyleClass().add("start-bt3");
+		btContinue.setLayoutY((HEIGHT)/2-50-btContinue.getPrefHeight());
+		btContinue.setLayoutX(150);
+		//TODO 我是分割线 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 		pausePanel.getChildren().addAll(btContinue, btQuit);
 
 		btContinue.setOnAction(e -> {
@@ -107,7 +122,11 @@ public class GamePanel extends Pane {
 				gridPanel.inAnimation = false;
 				timer.play();
 			} else {
+				//TODO 这里改了 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+				this.getChildren().remove(bMenu);
 				this.getChildren().add(pausePanel);
+				this.getChildren().add(bMenu);
+				//TODO 我是分割线 ！！！！！！！！！！！！！！！！！！！！！！！！！！！
 				gridPanel.inAnimation = true;
 				timer.pause();
 			}
