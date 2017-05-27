@@ -116,9 +116,11 @@ public class GridPanel extends Pane {
         return jewel;
     }
 
-    private void endOneLoop() {
+    public void endOneLoop() {
         inAnimation = false;
         currentAnimation = null;
+
+        selected = null;
 
         AsTurn = !AsTurn;
         if (AsTurn) {
@@ -128,7 +130,6 @@ public class GridPanel extends Pane {
         }
         gamePanel.clock.set(GamePanel.ROUND_TIME);
         gamePanel.continueTimer();
-
         if ((!AsTurn) && gamePanel.getLevel() == 2) {
             AIAction();
         }

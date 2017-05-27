@@ -159,13 +159,15 @@ public class GamePanel extends Pane {
 		this.getChildren().add(lblTime);
 		timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
 			if (clock.get().equals("0")) {
-				clock.setValue(ROUND_TIME);
-				gridPanel.AsTurn = !gridPanel.AsTurn;
-				gridPanel.selected = null;// 不然的话我可以先点一个不靠边界的然后对方就点不了了
+//				clock.setValue(ROUND_TIME);
+//				gridPanel.AsTurn = !gridPanel.AsTurn;
+//				gridPanel.selected = null;// 不然的话我可以先点一个不靠边界的然后对方就点不了了
+//
+//				if (!gridPanel.AsTurn && level == 2) {
+//					gridPanel.AIAction();
+//				}
 
-				if (!gridPanel.AsTurn) {
-					gridPanel.AIAction();
-				}
+				gridPanel.endOneLoop();
 
 			} else {
 				clock.set(String.valueOf(Integer.parseInt(clock.getValue()) - 1));
@@ -209,7 +211,7 @@ public class GamePanel extends Pane {
 		case 4:
 			return new Timeline();
 		case 5:
-			return physicalAttack(!isA, 200);// 因为目前这种写法之前做过100了
+			return physicalAttack(!isA, 200);
 		case 6:
 			return increaseAC(isA, 70);
 		case 7:
@@ -374,7 +376,6 @@ public class GamePanel extends Pane {
 		attackLabel lblPlayer = lblPlayer(isA, text);
 		GamePanel.this.getChildren().add(lblPlayer);
 		// lblPlayer.getChildren().add(Pane pane_for_lblPlayer);
-		// TODO 伤害的标签的动画
 		Timeline lblTL = new Timeline(
 				new KeyFrame(Duration.millis(200),
 						new KeyValue(lblPlayer.scaleXProperty(), 1.5, Interpolator.EASE_BOTH)),
@@ -385,7 +386,6 @@ public class GamePanel extends Pane {
 		return lblTL;
 	}
 
-	// TODO 标签在这里
 	public attackLabel lblPlayer(boolean isA, String text) {
 		attackLabel lblPlayer = new attackLabel(text);
 		// lblPlayer.getStyleClass().add("game-lblPoints");
@@ -394,7 +394,6 @@ public class GamePanel extends Pane {
 		lblPlayer.setStyle("-fx-text-fill: #e10000");
 		// lblPlayer.setEffect(new DropShadow(2,Color.WHITE));
 		lblPlayer.setOpacity(0);
-		// TODO 这里改坐标
 		if (isA) {
 			lblPlayer.setLayoutX(WIDTH - GridPanel.GRIDPANEL_WIDTH * 0.2 - 3);
 			lblPlayer.setLayoutY(GridPanel.GRIDPANEL_HEIGHT + GamePanel.OFFSET_HEIGHT + 30);
