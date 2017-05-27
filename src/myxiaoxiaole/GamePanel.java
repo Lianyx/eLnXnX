@@ -120,6 +120,7 @@ public class GamePanel extends Pane {
 			if (!newValue) {
 				this.getChildren().remove(pausePanel);
 				gridPanel.inAnimation = false;
+				gridPanel.currentAnimation.play();
 				timer.play();
 			} else {
 				//TODO 这里改了 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！
@@ -128,6 +129,7 @@ public class GamePanel extends Pane {
 				this.getChildren().add(bMenu);
 				//TODO 我是分割线 ！！！！！！！！！！！！！！！！！！！！！！！！！！！
 				gridPanel.inAnimation = true;
+				gridPanel.currentAnimation.stop();
 				timer.pause();
 			}
 		});
@@ -207,27 +209,27 @@ public class GamePanel extends Pane {
 		case 4:
 			return new Timeline();
 		case 5:
-		case 10:
 			return physicalAttack(!isA, 200);// 因为目前这种写法之前做过100了
 		case 6:
-		case 11:
 			return increaseAC(isA, 70);
 		case 7:
-		case 12:
 			return magicAttack(!isA, 160);
 		case 8:
-		case 13:
 			return increaseHP(isA, 70);
 		case 9:
 			return new Timeline();
-		// case 10:break;
-		// case 11:break;
-		// case 12:break;
-		// case 13:break;
-		// case 14:break;
+		case 10:
+		 	return physicalAttack(!isA, 300);
+		case 11:
+			return increaseAC(isA, 100);
+		case 12:
+			return magicAttack(!isA, 220);
+		 case 13:
+			 return increaseHP(isA, 100);
+		 case 14:break;
 
 		}
-		// TODO 改成这样试一试吧。。
+		//改成这样试一试吧。。
 		return new Timeline();
 	}
 
