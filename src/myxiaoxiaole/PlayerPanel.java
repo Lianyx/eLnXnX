@@ -50,7 +50,7 @@ public class PlayerPanel extends Pane {
 		this.setPrefWidth(WIDTH);
 		this.setPrefHeight(HEIGHT);
 
-		heroA.setLayoutX(WIDTH/1.8);
+		heroA.setLayoutX(WIDTH/1.95);
 		heroA.setLayoutY(8);
 //		heroA.setLayoutY((int) (HEIGHT * (0.5 + RATIO_OF_HERO * 0.5)));
 
@@ -141,7 +141,19 @@ public class PlayerPanel extends Pane {
 
 			if (newValue == 0) {
 				// TODO 死了动画就要停了。
-				gamePanel.setLayerOn();
+				gamePanel.setEndGameOn();
+//				Timer timer = new Timer();
+//				timer.schedule(new TimerTask() {
+//					public void run() {
+//						if (GridPanel.AsTurn) {
+//							EndScene endScene = new EndScene(Images.downWinner);
+//							gamePanel.getChildren().add(endScene);
+//						} else {
+//							EndScene endScene = new EndScene(Images.upWinner);
+//							gamePanel.getChildren().add(endScene);
+//						}
+//					}
+//				}, 3500);
 			} else {
 				lblHPPoint.setText(String.valueOf(oldValue));
 				Timeline tl = new Timeline(new KeyFrame(Duration.millis(20),

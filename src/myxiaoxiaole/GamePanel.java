@@ -1,13 +1,18 @@
 package myxiaoxiaole;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.animation.*;
 import javafx.beans.property.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class GamePanel extends Pane {
@@ -79,12 +84,14 @@ public class GamePanel extends Pane {
 
 		this.getChildren().addAll(playerA, playerB, bMenu, gridPanel); // ,divideLine);
 
+		Pane pausePanel = new Pane();
 		btContinue = new Button("Continue");
 		btQuit = new Button("Quit");
 		btQuit.setLayoutY(GamePanel.HEIGHT / 2);
 		btQuit.setLayoutX(180);
 		btContinue.setLayoutY(GamePanel.HEIGHT / 2);
 		btContinue.setLayoutX(220);
+		pausePanel.getChildren().addAll(btContinue, btQuit);
 
 		btContinue.setOnAction(e -> {
 			layerOnProperty.set(false);
@@ -96,13 +103,30 @@ public class GamePanel extends Pane {
 
 		layerOnProperty.addListener((observable, oldValue, newValue) -> {
 			if (!newValue) {
-				this.getChildren().removeAll(btContinue, btQuit);
+				this.getChildren().remove(pausePanel);
 				gridPanel.inAnimation = false;
 				timer.play();
 			} else {
-				this.getChildren().addAll(btContinue, btQuit);
+				this.getChildren().add(pausePanel);
 				gridPanel.inAnimation = true;
 				timer.pause();
+			}
+		});
+		
+		EndGameProperty.addListener((observable, oldValue, newValue) -> {
+			if(newValue){
+				System.out.println("kill");
+				if (gridPanel.AsTurn) {
+					EndScene endScene = new EndScene(Images.downWinner);
+					StackPane root = (StackPane) this.getParent();
+					root.getChildren().remove(this);
+					root.getChildren().add(endScene);
+				} else {
+					EndScene endScene = new EndScene(Images.upWinner);
+					StackPane root = (StackPane) this.getParent();
+					root.getChildren().remove(this);
+					root.getChildren().add(endScene);
+				}
 			}
 		});
 
@@ -142,6 +166,10 @@ public class GamePanel extends Pane {
 		layerOnProperty.set(true);
 	}
 
+	public void setEndGameOn(){
+		EndGameProperty.set(true);
+	}
+	
 	public int getLevel() {
 		return level;
 	}
@@ -275,10 +303,22 @@ public class GamePanel extends Pane {
 			returnTL = animateLbl(isA, "HP -" + harm);
 			returnTL.setOnFinished(e -> player.setHP(currentHP - harm));
 		} else {
-
+			
 			System.out.println("magical kill");
 			returnTL = animateLbl(isA, "magical kill");
 			returnTL.setOnFinished(e -> player.setHP(0));
+//			Timer timer = new Timer();
+//			timer.schedule(new TimerTask() {
+//				public void run() {
+//					if (isA) {
+//						EndScene endScene = new EndScene(Images.downWinner);
+//						GamePanel.this.getChildren().add(endScene);
+//					} else {
+//						EndScene endScene = new EndScene(Images.upWinner);
+//						GamePanel.this.getChildren().add(endScene);
+//					}
+//				}
+//			}, 3500);
 		}
 		System.out.println();
 
@@ -307,11 +347,13 @@ public class GamePanel extends Pane {
 		return returnTL;
 	}
 
+	// Pane pane_for_lblPlayer = new Pane();
 	private Timeline animateLbl(boolean isA, String text) {
 		SequentialTransition returnST = new SequentialTransition();
 		attackLabel lblPlayer = lblPlayer(isA, text);
 		GamePanel.this.getChildren().add(lblPlayer);
-		//TODO 伤害的标签的动画
+		// lblPlayer.getChildren().add(Pane pane_for_lblPlayer);
+		// TODO 伤害的标签的动画
 		Timeline lblTL = new Timeline(
 				new KeyFrame(Duration.millis(200),
 						new KeyValue(lblPlayer.scaleXProperty(), 1.5, Interpolator.EASE_BOTH)),
@@ -322,16 +364,23 @@ public class GamePanel extends Pane {
 		return lblTL;
 	}
 
-	//TODO 标签在这里
+	// TODO 标签在这里
 	public attackLabel lblPlayer(boolean isA, String text) {
 		attackLabel lblPlayer = new attackLabel(text);
-		lblPlayer.getStyleClass().add("game-lblPoints");
+		// lblPlayer.getStyleClass().add("game-lblPoints");
+		lblPlayer.setFont(Font.font("Cambria", 16));
+		lblPlayer.setStyle("-fx-font-weight: black");
+		lblPlayer.setStyle("-fx-text-fill: #e10000");
+		// lblPlayer.setEffect(new DropShadow(2,Color.WHITE));
 		lblPlayer.setOpacity(0);
-		lblPlayer.setLayoutX(GridPanel.GRIDPANEL_WIDTH * 0.2);
-		//TODO 这里改坐标
+		// TODO 这里改坐标
 		if (isA) {
+			lblPlayer.setLayoutX(WIDTH - GridPanel.GRIDPANEL_WIDTH * 0.2 - 3);
 			lblPlayer.setLayoutY(GridPanel.GRIDPANEL_HEIGHT + GamePanel.OFFSET_HEIGHT + 30);
 		} else {
+			lblPlayer.setScaleX(-1);
+			lblPlayer.setScaleY(-1);
+			lblPlayer.setLayoutX(GridPanel.GRIDPANEL_WIDTH * 0.05 + 5);
 			lblPlayer.setLayoutY(GamePanel.OFFSET_HEIGHT - 50);
 		}
 		return lblPlayer;

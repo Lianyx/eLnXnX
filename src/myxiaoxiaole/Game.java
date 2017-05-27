@@ -27,7 +27,7 @@ public class Game extends Application {
 
 		stage.setScene(scene);
 //		stage.initStyle(StageStyle.UNDECORATED);
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.show();
 	}
 

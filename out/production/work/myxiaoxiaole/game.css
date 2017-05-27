@@ -12,17 +12,13 @@
 /*.game-root{*/
     /*-fx-background-color: #ffffff;*/
 /*}*/
-/*.game-lblPoint{*/
-    /*-fx-font-size: 100;*/
-    /*!*-fx-font-*!*/
-/*}*/
-.game-btMenu{
-    -fx-font-size: 30;
-    -fx-background-color: transparent;
-    -fx-alignment: center;
-    /*-fx-pref-width: 300;这个为什么没用？*/
-    -fx-highlight-text-fill: white;/*这句是什么意思。。*/
+.game-lblPoint{
+   -fx-font-size: 100px;
+   -fx-font-weight: bold;
+   -fx-text-fill: #333333;
+   -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
+
 
 .start-bt1{
 	-fx-font: 30 arial;
@@ -39,6 +35,12 @@
 .start-bt3{
 	-fx-font: 30 arial;
     -fx-base: #0a8ea0;
+    -fx-alignment: center;
+}
+
+.start-bt4{
+	-fx-font: 30 arial;
+    -fx-base: #000000;
     -fx-alignment: center;
 }
 

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class GridPanel extends Pane {
     private static final int DROP_DURATION = 1400 / 3;
-    private static final int CHANGE_DURATION = 800 / 2;
+    private static final int CHANGE_DURATION = 800 / 4;
     private static final int CHANGEBACK_DURATION = 400 / 2;
     private static final int VANISH_DURATION = 200;
 
